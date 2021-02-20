@@ -22,7 +22,7 @@
 	font-size: 1.2rem;
 }
 .navlinks:nth-child(2) {
-	margin: 0 0.5rem;
+	margin: 0 1rem;
 }
 .connexion {
 	display: flex;
@@ -31,7 +31,7 @@
 }
 .login {
 	cursor: pointer;
-	margin-right: 0.5rem;
+	margin-right: 1rem;
 }
 .signup {
 	cursor: pointer;
@@ -92,5 +92,8 @@
 	}
 	.menu a {
 		line-height: 150%;
+	}
+	.login {
+		margin-right: 0;
 	}
 }

@@ -28,6 +28,7 @@ body {
 	background-color: var(--white-color);
 	color: var(--black-color);
 	font-family: var(--pop-font);
+	overflow-x: hidden;
 }
 
 a {
@@ -64,8 +65,16 @@ h6 {
 	font-family: var(--op-font);
 }
 
+/*layout*/
 .container {
 	padding: 0 1rem;
+}
+.row {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	width: 100%;
 }
 
 /*mobile menu*/
