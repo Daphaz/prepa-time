@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { Layout } from "../components/Layout";
 
 export default function Home() {
 	return (
@@ -11,9 +12,9 @@ export default function Home() {
 					content="La préparation de produits fermenter controllé"
 				/>
 			</Head>
-			<div>
+			<Layout footer>
 				<h1>Home</h1>
-			</div>
+			</Layout>
 		</>
 	);
 }

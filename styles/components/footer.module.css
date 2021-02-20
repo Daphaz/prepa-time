@@ -1,0 +1,12 @@
+.footer {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	background-color: var(--black-color);
+	color: var(--white-color);
+	padding: 1rem;
+}
+.power {
+	text-align: center;
+	width: 100%;
+}
