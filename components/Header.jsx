@@ -1,16 +1,24 @@
 import React, { useRef } from "react";
 import styles from "../styles/components/header.module.css";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 export const Header = () => {
+	const router = useRouter();
 	const menuOpen = useRef(null);
 	const burger = useRef(null);
 	const handleMenuOpen = () => {
 		menuOpen.current.classList.toggle("isopen");
 		burger.current.classList.toggle("menuOpen");
 	};
+	const handleLogo = () => {
+		router.push("/");
+	};
 	return (
 		<header className={styles.header}>
-			<div className={styles.logo}>PrepaTime.</div>
+			<div className={styles.logo} onClick={handleLogo}>
+				PrepaTime.
+			</div>
 			<nav className={styles.navbar}>
 				<ul>
 					<li className={styles.navlinks}>
@@ -25,9 +33,9 @@ export const Header = () => {
 				</ul>
 			</nav>
 			<div className={styles.connexion}>
-				<div className={styles.login}>
-					<a href="#">Se connecter</a>
-				</div>
+				<Link href="/login">
+					<a className={styles.login}>Se connecter</a>
+				</Link>
 				<div className={styles.signup}>
 					<a href="#">S'inscrire</a>
 				</div>
@@ -50,9 +58,11 @@ export const Header = () => {
 						<li>
 							<a href="#">Contact</a>
 						</li>
-						<div className={styles.login}>
-							<a href="#">Se connecter</a>
-						</div>
+						<li>
+							<Link href="/login">
+								<a className={styles.login}>Se connecter</a>
+							</Link>
+						</li>
 						<div className={styles.signup}>
 							<a href="#">S'inscrire</a>
 						</div>
