@@ -5,11 +5,12 @@ dbConnect();
 
 export default async (req, res) => {
 	const { method } = req;
+	const { id } = req.query;
 
 	switch (method) {
 		case "GET":
 			try {
-				controllerUsers.login(req, res);
+				controllerUsers.userInfo(req, res);
 			} catch (err) {
 				res.status(400).json({
 					success: false,
@@ -18,14 +19,9 @@ export default async (req, res) => {
 			}
 			break;
 		case "POST":
-			try {
-				controllerUsers.signUp(req, res);
-			} catch (err) {
-				res.status(400).json({
-					success: false,
-					data: err,
-				});
-			}
+			res.status(400).json({
+				success: false,
+			});
 			break;
 		case "PUT":
 			res.status(400).json({

@@ -8,18 +8,13 @@ export default async (req, res) => {
 
 	switch (method) {
 		case "GET":
-			try {
-				controllerUsers.login(req, res);
-			} catch (err) {
-				res.status(400).json({
-					success: false,
-					data: err,
-				});
-			}
+			res.status(400).json({
+				success: false,
+			});
 			break;
 		case "POST":
 			try {
-				controllerUsers.signUp(req, res);
+				controllerUsers.login(req, res);
 			} catch (err) {
 				res.status(400).json({
 					success: false,

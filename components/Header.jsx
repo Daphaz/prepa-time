@@ -2,8 +2,10 @@ import React, { useRef } from "react";
 import styles from "../styles/components/header.module.css";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import useAuth from "../auth/context";
 
 export const Header = () => {
+	const { logout, user, isAuthenticated } = useAuth();
 	const router = useRouter();
 	const menuOpen = useRef(null);
 	const burger = useRef(null);
@@ -13,6 +15,9 @@ export const Header = () => {
 	};
 	const handleLogo = () => {
 		router.push("/");
+	};
+	const handleLogout = () => {
+		logout();
 	};
 	return (
 		<header className={styles.header}>
@@ -30,16 +35,38 @@ export const Header = () => {
 					<li className={styles.navlinks}>
 						<a href="#">Contact</a>
 					</li>
+					{isAuthenticated && user.role === "admin" && (
+						<li>
+							<Link href="/dashboard">
+								<a className={styles.navlinks}>Dashboard</a>
+							</Link>
+						</li>
+					)}
 				</ul>
 			</nav>
 			<div className={styles.connexion}>
-				<Link href="/login">
-					<a className={styles.login}>Se connecter</a>
-				</Link>
-				<Link href="/signup">
-					<a className={styles.signup}>S'inscrire</a>
-				</Link>
+				{!isAuthenticated && (
+					<>
+						<Link href="/login">
+							<a className={styles.login}>Se connecter</a>
+						</Link>
+						<Link href="/signup">
+							<a className={styles.signup}>S'inscrire</a>
+						</Link>
+					</>
+				)}
 			</div>
+			{isAuthenticated && (
+				<div className={styles.profile}>
+					<img
+						src={user.picture}
+						alt="profile picture"
+						width="40px"
+						height="40px"
+					/>
+					<span onClick={logout}>Deconnexion</span>
+				</div>
+			)}
 			<div className={styles.hamburger} onClick={handleMenuOpen} ref={burger}>
 				<span></span>
 				<span></span>
@@ -58,16 +85,32 @@ export const Header = () => {
 						<li>
 							<a href="#">Contact</a>
 						</li>
-						<li>
-							<Link href="/login">
-								<a className={styles.login}>Se connecter</a>
-							</Link>
-						</li>
-						<li>
-							<Link href="/signup">
-								<a className={styles.signup}>S'inscrire</a>
-							</Link>
-						</li>
+						{isAuthenticated && (
+							<li onClick={logout}>
+								<span>Deconnexion</span>
+							</li>
+						)}
+						{isAuthenticated && user.role === "admin" && (
+							<li>
+								<Link href="/dashboard">
+									<a className={styles.navlinks}>Dashboard</a>
+								</Link>
+							</li>
+						)}
+						{!isAuthenticated && (
+							<>
+								<li>
+									<Link href="/login">
+										<a className={styles.login}>Se connecter</a>
+									</Link>
+								</li>
+								<li>
+									<Link href="/signup">
+										<a className={styles.signup}>S'inscrire</a>
+									</Link>
+								</li>
+							</>
+						)}
 					</ul>
 				</nav>
 			</div>

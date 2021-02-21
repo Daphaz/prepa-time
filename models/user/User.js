@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import VerifyJWT from "../../utils/verifyJWT";
 
 const Schema = mongoose.Schema;
 
@@ -84,6 +86,76 @@ const modelUsers = {
 			}
 		} catch (error) {
 			console.log("SignUp: ", error);
+		}
+	},
+	login: async (req, res) => {
+		const { username, password } = req.body;
+
+		try {
+			if (username && password) {
+				const user = await users.findOne({ username });
+				if (!user) {
+					res.json({
+						success: false,
+						data: "",
+					});
+					return;
+				} else {
+					const response = await bcrypt.compare(password, user.hash);
+					if (response) {
+						const id = user._id;
+						const token = jwt.sign({ id }, process.env.JWT_TOKEN, {
+							expiresIn: 300,
+						});
+						res.json({
+							success: true,
+							data: token,
+						});
+						return;
+					} else {
+						res.json({
+							success: false,
+							data: "",
+						});
+						return;
+					}
+				}
+			} else {
+				res.json({
+					success: false,
+				});
+				return;
+			}
+		} catch (error) {
+			console.log("Login: ", error);
+		}
+	},
+	userInfo: async (req, res) => {
+		try {
+			const id = await VerifyJWT(req, res);
+			if (id) {
+				const user = await users.findOne({ _id: id });
+				const { createdAt, email, picture, role, username, _id } = user;
+				res.json({
+					success: true,
+					data: {
+						createdAt,
+						email,
+						picture,
+						role,
+						username,
+						_id,
+					},
+				});
+				return;
+			} else {
+				res.json({
+					success: false,
+				});
+				return;
+			}
+		} catch (error) {
+			console.log("UserInfo: ", error);
 		}
 	},
 };

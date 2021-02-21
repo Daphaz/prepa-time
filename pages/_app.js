@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import Head from "next/head";
+import { AuthProvider } from "../auth/context";
 
 function MyApp({ Component, pageProps }) {
 	return (
@@ -11,7 +12,9 @@ function MyApp({ Component, pageProps }) {
 					rel="stylesheet"
 				/>
 			</Head>
-			<Component {...pageProps} />
+			<AuthProvider>
+				<Component {...pageProps} />
+			</AuthProvider>
 		</>
 	);
 }

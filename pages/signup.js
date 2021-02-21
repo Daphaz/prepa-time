@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Layout } from "../components/Layout";
 import styles from "../styles/form.module.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import { useRouter } from "next/router";
+import useAuth from "../auth/context";
+import { redirectFromServer } from "../auth/cookies";
 
 const initalState = {
 	check: false,
@@ -13,7 +15,13 @@ const initalState = {
 
 const Signup = () => {
 	const [state, setState] = useState(initalState);
+	const { isAuthenticated } = useAuth();
 	const router = useRouter();
+
+	useEffect(() => {
+		if (isAuthenticated) router.push("/");
+	}, [isAuthenticated]);
+
 	const {
 		register,
 		handleSubmit,
@@ -109,7 +117,10 @@ const Signup = () => {
 				{!state.check ? (
 					<div className={styles.card}>
 						<h2 className={styles.title}>S'inscrire</h2>
-						<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+						<form
+							className={styles.form}
+							onSubmit={handleSubmit(onSubmit)}
+							autoComplete="off">
 							<div className={styles.formGroup}>
 								<label htmlFor="email">Email</label>
 								<input
@@ -157,6 +168,14 @@ const Signup = () => {
 			</div>
 		</Layout>
 	);
+};
+
+export const getServerSideProps = async (context) => {
+	redirectFromServer(context);
+
+	return {
+		props: {},
+	};
 };
 
 export default Signup;
