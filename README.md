@@ -24,3 +24,9 @@ jsonwebtoken | authorisation jwt
 nodemailer | send email
 rand-token | generate token
 mongoose | simply use mongodb
+
+---
+
+#### Versions
+
+- v0.0.1 : System auth / autorisation login and signup
