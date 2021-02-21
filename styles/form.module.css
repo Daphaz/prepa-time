@@ -26,6 +26,13 @@
 	flex-direction: column;
 	align-items: flex-start;
 }
+.formGroup span {
+	background-color: var(--red-color);
+	color: var(--white-color);
+	padding: 0rem 0.25rem;
+	font-size: 1rem;
+	line-height: 150%;
+}
 .formGroup label {
 	text-transform: uppercase;
 	font-size: 1rem;
@@ -63,11 +70,31 @@
 	outline: none;
 }
 
+.form button:disabled {
+	cursor: not-allowed;
+	background-color: var(--grey-color);
+	color: var(--white-color);
+}
+.iconValid {
+	font-size: 10rem !important;
+	color: var(--green-color);
+}
+.card h3 {
+	text-align: center;
+	font-size: 2rem;
+}
+
 @media screen and (max-width: 768px) {
 	.card {
 		width: 80%;
 	}
 	.form button {
 		width: 60%;
+	}
+}
+
+@media screen and (max-width: 425px) {
+	.container {
+		margin-top: 0;
 	}
 }

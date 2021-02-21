@@ -36,9 +36,9 @@ export const Header = () => {
 				<Link href="/login">
 					<a className={styles.login}>Se connecter</a>
 				</Link>
-				<div className={styles.signup}>
-					<a href="#">S'inscrire</a>
-				</div>
+				<Link href="/signup">
+					<a className={styles.signup}>S'inscrire</a>
+				</Link>
 			</div>
 			<div className={styles.hamburger} onClick={handleMenuOpen} ref={burger}>
 				<span></span>
@@ -63,9 +63,11 @@ export const Header = () => {
 								<a className={styles.login}>Se connecter</a>
 							</Link>
 						</li>
-						<div className={styles.signup}>
-							<a href="#">S'inscrire</a>
-						</div>
+						<li>
+							<Link href="/signup">
+								<a className={styles.signup}>S'inscrire</a>
+							</Link>
+						</li>
 					</ul>
 				</nav>
 			</div>

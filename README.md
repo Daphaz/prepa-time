@@ -17,6 +17,7 @@ js-cookie | setup cookie
 jwt-decode | decode token 
 react-loading-skeleton | loading component
 react-hook-form | validation form
+material-ui-icons | for icons
 bcrypt | hash & salt password
 cron | schedule preparation
 jsonwebtoken | authorisation jwt
