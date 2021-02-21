@@ -1,0 +1,122 @@
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: var(--primary-color);
+	color: var(--white-color);
+	padding: 0 1rem;
+	height: 4rem;
+}
+.logo {
+	cursor: pointer;
+	font-size: 1.5rem;
+	letter-spacing: 0.01rem;
+	z-index: 5;
+}
+.navbar {
+	flex-grow: 1;
+}
+.navbar ul {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.navlinks {
+	font-size: 1.2rem;
+}
+.navlinks:nth-child(2) {
+	margin: 0 1rem;
+}
+.connexion {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.login {
+	cursor: pointer;
+	margin-right: 1rem;
+}
+.signup {
+	cursor: pointer;
+}
+.hamburger {
+	display: none;
+	cursor: pointer;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: flex-end;
+	width: 40px;
+	height: 20px;
+	z-index: 5;
+}
+.hamburger span {
+	display: block;
+	width: 100%;
+	height: 1px;
+	border-radius: 999px;
+	background-color: var(--white-color);
+	transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.hamburger span:nth-child(2) {
+	width: 50%;
+	transition: width 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.menu {
+	display: none;
+	overflow: hidden;
+	z-index: 2;
+}
+.menu span {
+	position: relative;
+	cursor: pointer;
+}
+.profile {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+.profile span {
+	cursor: pointer;
+	margin-left: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+	.hamburger {
+		display: flex;
+	}
+	.navbar {
+		display: none;
+	}
+	.connexion {
+		display: none;
+	}
+	.menu {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		width: 100%;
+		font-size: 2.5rem;
+		font-family: var(--op-font);
+		transform: translateY(-100%);
+		transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+	}
+	.menu a {
+		line-height: 150%;
+	}
+	.login {
+		margin-right: 0;
+	}
+	.profile {
+		flex-grow: 1;
+		margin-right: 1rem;
+	}
+	.profile span {
+		display: none;
+	}
+}

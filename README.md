@@ -17,9 +17,16 @@ js-cookie | setup cookie
 jwt-decode | decode token 
 react-loading-skeleton | loading component
 react-hook-form | validation form
+material-ui-icons | for icons
 bcrypt | hash & salt password
 cron | schedule preparation
 jsonwebtoken | authorisation jwt
 nodemailer | send email
 rand-token | generate token
 mongoose | simply use mongodb
+
+---
+
+#### Versions
+
+- v0.0.1 : System auth / autorisation login and signup
