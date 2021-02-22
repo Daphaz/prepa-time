@@ -124,6 +124,7 @@ const Signup = () => {
 							<div className={styles.formGroup}>
 								<label htmlFor="email">Email</label>
 								<input
+									autoComplete="off"
 									type="email"
 									name="email"
 									id="email"
@@ -135,6 +136,7 @@ const Signup = () => {
 							<div className={styles.formGroup}>
 								<label htmlFor="username">Nom d'utilisateur</label>
 								<input
+									autoComplete="off"
 									type="text"
 									name="username"
 									id="username"
@@ -146,6 +148,7 @@ const Signup = () => {
 							<div className={styles.formGroup}>
 								<label htmlFor="password">Mot de passe</label>
 								<input
+									autoComplete="off"
 									type="password"
 									name="password"
 									id="password"
