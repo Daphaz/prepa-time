@@ -225,7 +225,49 @@ const modelUsers = {
 		}
 	},
 	reset: async (req, res) => {
-		//
+		const { password, token } = req.body;
+		const date = Date.now();
+		try {
+			const result = await resets.findOne({
+				resetPasswordToken: token,
+				resetPasswordExpires: { $gt: date },
+			});
+			if (result) {
+				const salt = await bcrypt.genSalt(12);
+				const hash = bcrypt.hashSync(password, salt);
+				const UpdateUser = await users.findOneAndUpdate(
+					{ username: result.username },
+					{
+						salt,
+						hash,
+					}
+				);
+				if (UpdateUser) {
+					const updateReset = {
+						resetPasswordToken: null,
+						resetPasswordExpires: null,
+					};
+					const update = await resets.findOneAndUpdate(
+						{ resetPasswordToken: token },
+						updateReset
+					);
+					if (update) {
+						res.json({
+							sucess: true,
+							data: "Nouveaux mot de passe bien enregistré !",
+						});
+						return;
+					}
+				}
+			} else {
+				res.json({
+					sucess: false,
+				});
+				return;
+			}
+		} catch (error) {
+			console.log("Reset: ", error);
+		}
 	},
 };
 

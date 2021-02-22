@@ -23,9 +23,14 @@ export default async (req, res) => {
 			}
 			break;
 		case "PUT":
-			res.status(400).json({
-				success: false,
-			});
+			try {
+				controllerUsers.reset(req, res);
+			} catch (error) {
+				res.status(400).json({
+					success: false,
+					data: err,
+				});
+			}
 			break;
 		case "DELETE":
 			res.status(400).json({
