@@ -68,6 +68,7 @@ const Login = () => {
 						<div className={styles.formGroup}>
 							<label htmlFor="username">Nom d'utilisateur</label>
 							<input
+								title="inpUsername"
 								autoComplete="username"
 								type="text"
 								name="username"
@@ -80,6 +81,7 @@ const Login = () => {
 						<div className={styles.formGroup}>
 							<label htmlFor="password">Mot de passe</label>
 							<input
+								title="inpPass"
 								autoComplete="current-password"
 								type="password"
 								name="password"
@@ -89,7 +91,11 @@ const Login = () => {
 							/>
 							{errors.password && <span>{errors.password.message}</span>}
 						</div>
-						<button type="submit" className={styles.btn} disabled={!isValid}>
+						<button
+							title="btn"
+							type="submit"
+							className={styles.btn}
+							disabled={!isValid}>
 							Valider
 						</button>
 					</form>
