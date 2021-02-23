@@ -1,9 +1,19 @@
+import { useEffect } from "react";
 import Head from "next/head";
 import { Layout } from "../components/Layout";
 import { Banner } from "../components/Banner";
 import { Features } from "../components/Features";
+import useFormContext from "../auth/formContext";
 
 export default function Home() {
+	const { setFormState } = useFormContext();
+	useEffect(() => {
+		setFormState({
+			check: false,
+			data: "",
+		});
+	}, []);
+
 	return (
 		<>
 			<Head>

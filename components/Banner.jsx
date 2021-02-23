@@ -1,15 +1,15 @@
 import React from "react";
 import styles from "../styles/components/banner.module.css";
+import Image from "next/image";
 
 export const Banner = () => {
 	return (
 		<div className={styles.banner}>
 			<div className={styles.bg}>
-				<img
-					src="https://images.pexels.com/photos/326279/pexels-photo-326279.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+				<Image
+					src="/banner.jpg"
 					alt="plat de cuisine sur une table"
-					width="100%"
-					height="100%"
+					layout="fill"
 				/>
 			</div>
 			<div className="container">
