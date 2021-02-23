@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import styles from "../styles/components/header.module.css";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import useAuth from "../auth/context";
@@ -12,6 +13,7 @@ export const Header = () => {
 	const handleMenuOpen = () => {
 		menuOpen.current.classList.toggle("isopen");
 		burger.current.classList.toggle("menuOpen");
+		document.body.classList.toggle("bodyOpen");
 	};
 	const handleLogo = () => {
 		router.push("/");
@@ -84,7 +86,9 @@ export const Header = () => {
 						width="40px"
 						height="40px"
 					/>
-					<span onClick={logout}>Deconnexion</span>
+					<span onClick={logout}>
+						<ExitToAppIcon className={styles.iconLogout} />
+					</span>
 				</div>
 			)}
 			<div className={styles.hamburger} onClick={handleMenuOpen} ref={burger}>
@@ -146,14 +150,14 @@ export const Header = () => {
 						)}
 						{!isAuthenticated && (
 							<>
-								<li>
+								<li className={styles.login}>
 									<Link href="/login">
-										<a className={styles.login}>Se connecter</a>
+										<a>Se connecter</a>
 									</Link>
 								</li>
-								<li>
+								<li className={styles.signup}>
 									<Link href="/signup">
-										<a className={styles.signup}>S'inscrire</a>
+										<a>S'inscrire</a>
 									</Link>
 								</li>
 							</>

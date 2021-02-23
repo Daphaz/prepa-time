@@ -63,9 +63,19 @@
 }
 .menu {
 	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	font-family: var(--op-font);
+	transform: translateY(-100%);
+	transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
 	overflow: hidden;
 	z-index: 2;
 }
+
 .menu span {
 	position: relative;
 	cursor: pointer;
@@ -77,8 +87,14 @@
 	z-index: 5;
 }
 .profile span {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
 	cursor: pointer;
 	margin-left: 1rem;
+}
+.iconLogout {
+	font-size: 40px !important;
 }
 
 @media screen and (max-width: 768px) {
@@ -103,26 +119,31 @@
 		display: none;
 	}
 	.menu {
+		display: block;
+	}
+	.menu nav {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
+	}
+	.menu nav ul {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		align-items: center;
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		width: 100%;
-		font-family: var(--op-font);
-		transform: translateY(-100%);
-		transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
 	}
 	.menu .navlinks {
 		line-height: 150%;
 		font-size: 2.5rem;
 	}
 	.login {
+		line-height: 150%;
+		font-size: 2.5rem;
 		margin-right: 0;
+	}
+	.signup {
+		line-height: 150%;
+		font-size: 2.5rem;
 	}
 	.profile {
 		flex-grow: 1;
