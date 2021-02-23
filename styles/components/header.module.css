@@ -1,4 +1,8 @@
 .header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -6,6 +10,7 @@
 	color: var(--white-color);
 	padding: 0 1rem;
 	height: 4rem;
+	z-index: 20;
 }
 .logo {
 	cursor: pointer;
@@ -120,6 +125,7 @@
 	}
 	.menu {
 		display: block;
+		color: var(--white-color);
 	}
 	.menu nav {
 		display: flex;

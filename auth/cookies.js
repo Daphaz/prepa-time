@@ -41,15 +41,3 @@ export const redirectFromServer = (context) => {
 		}
 	}
 };
-
-export const redirectFromServerNotConnected = (context) => {
-	if (!context.req.headers.cookie) {
-		context.res.statusCode = 302;
-		context.res.setHeader("Location", "/");
-	} else {
-		const token = getCookieFromServer("token", context.req);
-		if (token) {
-			return;
-		}
-	}
-};

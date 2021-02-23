@@ -31,6 +31,10 @@ body {
 	overflow-x: hidden;
 }
 
+main {
+	padding-top: 4rem;
+}
+
 a {
 	position: relative;
 	color: inherit;
@@ -110,4 +114,18 @@ h6 {
 }
 .menuOpen span:nth-child(2) {
 	width: 0% !important;
+}
+
+/*Datepicker*/
+.MuiFormControl-root {
+	width: 100%;
+}
+.MuiInputBase-input .MuiInput-input {
+	border-bottom: none !important;
+}
+.MuiInput-underline:before {
+	border-bottom: 1px solid var(--black-color) !important;
+}
+.MuiInput-underline:after {
+	border-bottom: 2px solid var(--primary-color) !important;
 }

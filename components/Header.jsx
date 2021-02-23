@@ -19,83 +19,85 @@ export const Header = () => {
 		router.push("/");
 	};
 	return (
-		<header className={styles.header}>
-			<div className={styles.logo} onClick={handleLogo}>
-				PrepaTime.
-			</div>
-			<nav className={styles.navbar}>
-				<ul>
-					{!isAuthenticated ? (
-						<>
-							<li className={styles.navlinks}>
-								<Link href="/explorer">
-									<a>Explorer</a>
-								</Link>
-							</li>
-							<li className={styles.navlinks}>
-								<Link href="/utiliser">
-									<a>Utiliser</a>
-								</Link>
-							</li>
-							<li className={styles.navlinks}>
-								<Link href="/contact">
-									<a>Contact</a>
-								</Link>
-							</li>
-						</>
-					) : (
-						<>
-							<li className={styles.navlinks}>
-								<Link href="/preparation">
-									<a>Preparation</a>
-								</Link>
-							</li>
-							<li className={styles.navlinks}>
-								<Link href="programmer">
-									<a>Programmer</a>
-								</Link>
-							</li>
-						</>
-					)}
-					{isAuthenticated && user.role === "admin" && (
-						<li>
-							<Link href="/dashboard">
-								<a className={styles.navlinks}>Dashboard</a>
-							</Link>
-						</li>
-					)}
-				</ul>
-			</nav>
-			<div className={styles.connexion}>
-				{!isAuthenticated && (
-					<>
-						<Link href="/login">
-							<a className={styles.login}>Se connecter</a>
-						</Link>
-						<Link href="/signup">
-							<a className={styles.signup}>S'inscrire</a>
-						</Link>
-					</>
-				)}
-			</div>
-			{isAuthenticated && (
-				<div className={styles.profile}>
-					<img
-						src={user.picture}
-						alt="profile picture"
-						width="40px"
-						height="40px"
-					/>
-					<span onClick={logout}>
-						<ExitToAppIcon className={styles.iconLogout} />
-					</span>
+		<>
+			<header className={styles.header}>
+				<div className={styles.logo} onClick={handleLogo}>
+					PrepaTime.
 				</div>
-			)}
-			<div className={styles.hamburger} onClick={handleMenuOpen} ref={burger}>
-				<span></span>
-				<span></span>
-				<span></span>
-			</div>
+				<nav className={styles.navbar}>
+					<ul>
+						{!isAuthenticated ? (
+							<>
+								<li className={styles.navlinks}>
+									<Link href="/explorer">
+										<a>Explorer</a>
+									</Link>
+								</li>
+								<li className={styles.navlinks}>
+									<Link href="/utiliser">
+										<a>Utiliser</a>
+									</Link>
+								</li>
+								<li className={styles.navlinks}>
+									<Link href="/contact">
+										<a>Contact</a>
+									</Link>
+								</li>
+							</>
+						) : (
+							<>
+								<li className={styles.navlinks}>
+									<Link href="/preparation">
+										<a>Preparation</a>
+									</Link>
+								</li>
+								<li className={styles.navlinks}>
+									<Link href="programmer">
+										<a>Programmer</a>
+									</Link>
+								</li>
+							</>
+						)}
+						{isAuthenticated && user.role === "admin" && (
+							<li>
+								<Link href="/dashboard">
+									<a className={styles.navlinks}>Dashboard</a>
+								</Link>
+							</li>
+						)}
+					</ul>
+				</nav>
+				<div className={styles.connexion}>
+					{!isAuthenticated && (
+						<>
+							<Link href="/login">
+								<a className={styles.login}>Se connecter</a>
+							</Link>
+							<Link href="/signup">
+								<a className={styles.signup}>S'inscrire</a>
+							</Link>
+						</>
+					)}
+				</div>
+				{isAuthenticated && (
+					<div className={styles.profile}>
+						<img
+							src={user.picture}
+							alt="profile picture"
+							width="40px"
+							height="40px"
+						/>
+						<span onClick={logout}>
+							<ExitToAppIcon className={styles.iconLogout} />
+						</span>
+					</div>
+				)}
+				<div className={styles.hamburger} onClick={handleMenuOpen} ref={burger}>
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+			</header>
 			<div className={styles.menu} ref={menuOpen}>
 				<div className="bgMenu">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -165,6 +167,6 @@ export const Header = () => {
 					</ul>
 				</nav>
 			</div>
-		</header>
+		</>
 	);
 };
