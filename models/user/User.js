@@ -185,7 +185,9 @@ const modelUsers = {
 					});
 					const subject = "Votre lien pour reset votre mot de passe ✅";
 					const html = await resetPass(findUser.username, token);
-					await sendEmail(res, findUser.email, subject, html);
+					const sucessMessage =
+						"Votre nouveaux mot de passe vous as été envoyé sur votre email.";
+					await sendEmail(res, findUser.email, subject, html, sucessMessage);
 				} else {
 					res.json({
 						success: false,

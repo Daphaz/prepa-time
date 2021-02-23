@@ -3,10 +3,11 @@ import { Layout } from "../../components/Layout";
 import { Form } from "../../components/Form";
 import styles from "../../styles/form.module.css";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import { useRouter } from "next/router";
 import { redirectFromServer } from "../../auth/cookies";
 import useAuth from "../../auth/context";
-import axios from "axios";
+import { apiPost } from "../../auth/axios";
 import useFormContext from "../../auth/formContext";
 import { ResetLogic } from "../../logic/formLogic";
 
@@ -38,6 +39,7 @@ const Reset = ({ tokenValid }) => {
 			) : (
 				<div className={styles.container}>
 					<div className={styles.card}>
+						<HighlightOffIcon className={styles.iconInValid} />
 						<h3>Ce lien à expiré, veuillez recommencer la procédure</h3>
 					</div>
 				</div>
@@ -52,7 +54,7 @@ export const getServerSideProps = async (context) => {
 	const { id: token } = context.query;
 	let tokenValid;
 
-	const { data } = await axios.post(`${process.env.BASE_URL}/api/reset`, {
+	const { data } = await apiPost("/api/reset", {
 		token,
 	});
 

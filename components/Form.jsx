@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "../styles/form.module.css";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
+import Link from "next/link";
 
 const initalState = {
 	toggle1: true,
@@ -70,6 +71,11 @@ export const Form = ({ login, signup, forgot, reset, logic }) => {
 						disabled={!isValid}>
 						Valider
 					</button>
+					<div className={styles.links}>
+						<Link href="/reset">
+							<a>Mot de passe oublié ?</a>
+						</Link>
+					</div>
 				</form>
 			)}
 			{signup && (

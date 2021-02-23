@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
 	},
 });
 
-const sendEmail = async (res, to, subject, html) => {
+const sendEmail = async (res, to, subject, html, sucessMessage) => {
 	const mailOptions = {
 		from: process.env.EMAIL_USER,
 		to,
@@ -24,7 +24,7 @@ const sendEmail = async (res, to, subject, html) => {
 		if (response) {
 			res.json({
 				sucess: true,
-				data: "Votre nouveaux mot de passe vous as été envoyé sur votre email.",
+				data: sucessMessage,
 			});
 			return;
 		}

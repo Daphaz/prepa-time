@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
 import useAuth from "../auth/context";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import axios from "axios";
+import { apiPost, apiPut } from "../auth/axios";
 import useFormContext from "../auth/formContext";
 
 /**
@@ -35,7 +34,7 @@ export const loginLogic = () => {
 
 	const onSubmit = async (d) => {
 		try {
-			const { data } = await axios.post("/api/login", d);
+			const { data } = await apiPost("/api/login", d);
 			if (data.success) {
 				login(data.data);
 			} else {
@@ -112,7 +111,7 @@ export const signupLogic = () => {
 
 	const onSubmit = async (d) => {
 		try {
-			const { data } = await axios.post("/api/users", d);
+			const { data } = await apiPost("/api/users", d);
 			if (data.success) {
 				setFormState({
 					check: true,
@@ -196,7 +195,7 @@ export const forgotLogic = () => {
 
 	const onSubmit = async (d) => {
 		try {
-			const { data } = await axios.post("/api/forgot", d);
+			const { data } = await apiPost("/api/forgot", d);
 			if (data.sucess) {
 				setFormState({
 					check: true,
@@ -268,7 +267,7 @@ export const ResetLogic = () => {
 	const onSubmit = async (d) => {
 		if (d.password === d.pass2) {
 			try {
-				const { data } = await axios.put("/api/reset", {
+				const { data } = await apiPut("/api/reset", {
 					password: d.password,
 					token: token,
 				});

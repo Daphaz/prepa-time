@@ -1,6 +1,6 @@
 const resetPass = (username, token) => {
 	const promise = new Promise((res, rej) => {
-		const url = `${process.env.BASE_URL}/reset/${token}`;
+		const url = `${process.env.NEXT_PUBLIC_BASE_URL}/reset/${token}`;
 		if (username && token) {
 			const email = `
     <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/strict.dtd">
