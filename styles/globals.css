@@ -83,13 +83,18 @@ h6 {
 }
 .bgMenu {
 	position: absolute;
-	top: -55%;
+	top: -20%;
 	left: 0;
 	width: 100%;
 	height: 100%;
 	background-color: var(--primary-color);
-	transform: scale(2);
-	border-radius: 0 0 999px 999px;
+}
+.bgMenu svg {
+	position: absolute;
+	left: 0;
+	bottom: -10%;
+	width: 100%;
+	fill: var(--primary-color);
 }
 .menuOpen span:first-child {
 	transform: translate(10px, 10px) rotate(45deg);
