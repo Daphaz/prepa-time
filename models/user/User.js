@@ -117,7 +117,7 @@ const modelUsers = {
 					if (response) {
 						const id = user._id;
 						const token = jwt.sign({ id }, process.env.JWT_TOKEN, {
-							expiresIn: 300,
+							expiresIn: 1800, //300
 						});
 						res.json({
 							success: true,
