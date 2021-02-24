@@ -25,6 +25,11 @@ const prepaSchema = new Schema({
 		type: Array,
 		default: [],
 	},
+	finish: {
+		type: Boolean,
+		default: false,
+	},
+	type: String,
 });
 
 let prepas;
@@ -36,13 +41,14 @@ try {
 
 const modelPrepa = {
 	add: async (req, res) => {
-		const { title, description, image_url } = req.body;
+		const { title, description, image_url, type } = req.body;
 		const id = await VerifyJWT(req, res);
 		const response = await prepas.create({
 			title,
 			description,
 			image_url,
 			id_user: id,
+			type,
 		});
 		if (response) {
 			res.json({
@@ -64,6 +70,23 @@ const modelPrepa = {
 			res.json({
 				sucess: true,
 				data: items,
+			});
+			return;
+		} else {
+			res.json({
+				sucess: false,
+			});
+			return;
+		}
+	},
+	getOne: async (req, res) => {
+		const id_user = await VerifyJWT(req, res);
+		const { id } = req.query;
+		const prepa = await prepas.findOne({ id_user: id_user, _id: id });
+		if (prepa) {
+			res.json({
+				sucess: true,
+				data: prepa,
 			});
 			return;
 		} else {

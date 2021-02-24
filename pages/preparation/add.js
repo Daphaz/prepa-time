@@ -27,6 +27,9 @@ const Add = () => {
 		title: register({
 			required: "ajouter un titre",
 		}),
+		type: register({
+			required: "choissiez un type",
+		}),
 		description: register({
 			maxLength: {
 				value: 500,
@@ -50,10 +53,12 @@ const Add = () => {
 		if (d.image_url === "") {
 			query.title = d.title;
 			query.description = d.description;
+			query.type = d.type;
 		} else {
 			query.title = d.title;
 			query.description = d.description;
 			query.image_url = d.image_url;
+			query.type = d.type;
 		}
 		try {
 			const { data } = await apiPost("/api/preparation", query);
@@ -61,6 +66,7 @@ const Add = () => {
 				setValue("title", "");
 				setValue("description", "");
 				setValue("image_url", "");
+				setValue("type", "");
 				router.push("/preparation");
 			} else {
 				setError("image_url", {
@@ -124,6 +130,19 @@ const Add = () => {
 										{errors.image_url && (
 											<span>{errors.image_url.message}</span>
 										)}
+									</div>
+									<div className={styles.formGroup}>
+										<label htmlFor="type">Type</label>
+										<select
+											id="type"
+											name="type"
+											className={styles.inpText}
+											ref={prepa.type}
+											onFocus={() => clearError("type")}>
+											<option value="private">Privé</option>
+											<option value="public">Public</option>
+										</select>
+										{errors.type && <span>{errors.type.message}</span>}
 									</div>
 									<button
 										title="btn"

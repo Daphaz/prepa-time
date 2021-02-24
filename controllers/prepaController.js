@@ -7,6 +7,9 @@ const controllerPrepa = {
 	get: (req, res) => {
 		modelPrepa.get(req, res);
 	},
+	getOne: (req, res) => {
+		modelPrepa.getOne(req, res);
+	},
 };
 
 export default controllerPrepa;

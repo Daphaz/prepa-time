@@ -57,6 +57,20 @@
 .btn:focus {
 	outline: none;
 }
+.footerCard {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+}
+.type {
+	text-transform: uppercase;
+	font-weight: bold;
+	color: var(--white-color);
+	background-color: var(--black-color);
+	padding: 0 0.5rem;
+	border-radius: 3px;
+}
 @media screen and (max-width: 768px) {
 	.btn {
 		width: 100%;

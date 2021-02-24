@@ -1,0 +1,65 @@
+.receipe_table {
+	width: 100%;
+}
+.receipe_table table {
+	margin: 2rem auto;
+	border-collapse: collapse;
+	width: 100%;
+	min-width: 300px;
+	max-width: 850px;
+	box-shadow: 0 5px 50px rgba(0, 0, 0, 0.15);
+	border: 1px solid var(--grey-color);
+}
+
+.receipe_table thead tr th {
+	font-weight: 100;
+	text-transform: uppercase;
+	font-size: 1rem;
+	background-color: var(--black-color);
+	color: var(--white-color);
+	text-align: center;
+	font-family: var(--op-font);
+	padding: 0.2rem 0;
+}
+.receipe_table td {
+	font-size: 1rem;
+	text-align: center;
+	padding: 0.5rem 1rem;
+}
+.receipe_table th td {
+	padding: 0.5rem 1rem;
+}
+.receipe_table tbody tr,
+.receipe_table tbody td,
+.receipe_table tbody th {
+	border: 1px solid #eee;
+}
+.receipe_table tbody tr:nth-child(even) {
+	background-color: #f3f3f3;
+}
+.btn_modify {
+	padding: 0.2rem 0.5rem;
+	background-color: var(--orange-color);
+	color: var(--white-color);
+}
+.btn_delete {
+	padding: 0.2rem 0.5rem;
+	background-color: var(--red-color);
+	color: var(--white-color);
+}
+.btn_modify,
+.btn_delete {
+	cursor: pointer;
+	border-radius: 5px;
+	border: none;
+	outline: none;
+}
+
+@media screen and (max-width: 767px) {
+	.receipe_table thead tr th {
+		font-size: 0.75rem;
+	}
+	.receipe_table thead tr td {
+		font-size: 0.5rem;
+	}
+}

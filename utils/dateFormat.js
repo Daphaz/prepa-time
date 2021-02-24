@@ -47,6 +47,6 @@ dateFormat.i18n = {
 };
 
 export const prepaDate = (now) => {
-	dateFormat.masks.prepaAdd = '"le" dddd dd mmmm yyyy à HH:MM';
+	dateFormat.masks.prepaAdd = "dd mmmm yyyy";
 	return dateFormat(now, "prepaAdd");
 };

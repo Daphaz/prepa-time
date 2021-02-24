@@ -52,9 +52,12 @@ const Preparation = () => {
 														<img src={item.image_url} width="100%" />
 													</div>
 												)}
-												<span className={styles.createdAt}>
-													{prepaDate(item.createdAt)}
-												</span>
+												<div className={styles.footerCard}>
+													<span className={styles.type}>{item.type}</span>
+													<span className={styles.createdAt}>
+														{prepaDate(item.createdAt)}
+													</span>
+												</div>
 											</Card>
 										</div>
 									))}
