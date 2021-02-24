@@ -5,11 +5,12 @@ dbConnect();
 
 export default async (req, res) => {
 	const { method } = req;
+	//const { id } = req.query;
 
 	switch (method) {
 		case "GET":
 			try {
-				controllerIngredient.get(req, res);
+				controllerIngredient.getOne(req, res);
 			} catch (err) {
 				res.status(400).json({
 					success: false,
@@ -18,34 +19,19 @@ export default async (req, res) => {
 			}
 			break;
 		case "POST":
-			try {
-				controllerIngredient.add(req, res);
-			} catch (err) {
-				res.status(400).json({
-					success: false,
-					data: err,
-				});
-			}
+			res.status(400).json({
+				success: false,
+			});
 			break;
 		case "PUT":
-			try {
-				controllerIngredient.modify(req, res);
-			} catch (err) {
-				res.status(400).json({
-					success: false,
-					data: err,
-				});
-			}
+			res.status(400).json({
+				success: false,
+			});
 			break;
 		case "DELETE":
-			try {
-				controllerIngredient.delete(req, res);
-			} catch (err) {
-				res.status(400).json({
-					success: false,
-					data: err,
-				});
-			}
+			res.status(400).json({
+				success: false,
+			});
 			break;
 		default:
 			res.status(400).json({

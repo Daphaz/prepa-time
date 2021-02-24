@@ -7,6 +7,9 @@ const controllerIngredient = {
 	get: (req, res) => {
 		modelIngredient.get(req, res);
 	},
+	getOne: (req, res) => {
+		modelIngredient.getOne(req, res);
+	},
 	delete: (req, res) => {
 		modelIngredient.delete(req, res);
 	},

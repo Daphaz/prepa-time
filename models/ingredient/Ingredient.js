@@ -29,31 +29,35 @@ try {
 const modelIngredient = {
 	add: async (req, res) => {
 		const { title, quantity, unit, prepa } = req.body;
-		const id = await VerifyJWT(req, res);
-		const response = await ingredients.create({
-			title,
-			quantity,
-			unit,
-			prepa,
-			id_user: id,
-		});
-		if (response) {
-			res.json({
-				sucess: true,
-				data: "Nouveaux ingredient ajouté",
+		try {
+			const id = await VerifyJWT(req, res);
+			const response = await ingredients.create({
+				title,
+				quantity,
+				unit,
+				prepa,
+				id_user: id,
 			});
-			return;
-		} else {
-			res.json({
-				sucess: false,
-			});
-			return;
+			if (response) {
+				res.json({
+					sucess: true,
+					data: "Nouveaux ingredient ajouté",
+				});
+				return;
+			} else {
+				res.json({
+					sucess: false,
+				});
+				return;
+			}
+		} catch (error) {
+			console.log("IngredienAdd: ", error);
 		}
 	},
 	get: async (req, res) => {
+		const { prepa } = req.query;
 		try {
 			const id = await VerifyJWT(req, res);
-			const { prepa } = req.query;
 			if (prepa) {
 				const ing = await ingredients.find({ id_user: id, prepa: prepa });
 				if (ing.length > 0) {
@@ -75,13 +79,45 @@ const modelIngredient = {
 				return;
 			}
 		} catch (error) {
-			console.log("IngredientAdd: ", error);
+			console.log("IngredientGet: ", error);
+		}
+	},
+	getOne: async (req, res) => {
+		const { prepa, ingredient_id } = req.query;
+		try {
+			const id = await VerifyJWT(req, res);
+			if (ingredient_id) {
+				const ing = await ingredients.findOne({
+					_id: ingredient_id,
+					id_user: id,
+					prepa: prepa,
+				});
+				if (ing) {
+					res.json({
+						sucess: true,
+						data: ing,
+					});
+					return;
+				} else {
+					res.json({
+						sucess: false,
+					});
+					return;
+				}
+			} else {
+				res.json({
+					sucess: false,
+				});
+				return;
+			}
+		} catch (error) {
+			console.log("IngredientGetOne: ", error);
 		}
 	},
 	delete: async (req, res) => {
+		const { ingredient_id } = req.body;
 		try {
 			const id = await VerifyJWT(req, res);
-			const { ingredient_id } = req.body;
 			if (ingredient_id) {
 				const response = await ingredients.findOneAndDelete({
 					_id: ingredient_id,
@@ -106,6 +142,43 @@ const modelIngredient = {
 			}
 		} catch (error) {
 			console.log("IngredientDelete: ", error);
+		}
+	},
+	modify: async (req, res) => {
+		const { title, quantity, unit, prepa, ing_id } = req.body;
+		try {
+			const id = await VerifyJWT(req, res);
+			if (title && quantity && unit && prepa && ing_id) {
+				const date = Date.now();
+				const query = {
+					title,
+					quantity,
+					unit,
+					updatedAt: date,
+				};
+				const response = await ingredients.findOneAndUpdate(
+					{ _id: ing_id, id_user: id, prepa: prepa },
+					query
+				);
+				if (response) {
+					res.json({
+						sucess: true,
+					});
+					return;
+				} else {
+					res.json({
+						sucess: false,
+					});
+					return;
+				}
+			} else {
+				res.json({
+					sucess: false,
+				});
+				return;
+			}
+		} catch (error) {
+			console.log("IngredientModify: ", error);
 		}
 	},
 };

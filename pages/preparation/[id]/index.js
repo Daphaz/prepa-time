@@ -35,6 +35,11 @@ const Id = ({ info, dataIngredient }) => {
 			clearTimeout(timer);
 		}
 	};
+	const handleModify = (ingredient_id) => {
+		router.push(
+			`/preparation/${info._id}/ingredient/modify?ing=${ingredient_id}`
+		);
+	};
 	return (
 		<>
 			{isAuthenticated && (
@@ -95,7 +100,9 @@ const Id = ({ info, dataIngredient }) => {
 																	</button>
 																</td>
 																<td>
-																	<button className={table.btn_modify}>
+																	<button
+																		className={table.btn_modify}
+																		onClick={() => handleModify(ing._id)}>
 																		<EditIcon fontSize="small" />
 																	</button>
 																</td>
