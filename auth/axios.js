@@ -25,11 +25,8 @@ const apiPut = (request, datas) => {
 	return api.put(request, datas);
 };
 
-const apiDelete = (request, datas, token) => {
+const apiDelete = (request, datas) => {
 	return api.delete(request, {
-		headers: {
-			Authorization: token,
-		},
 		data: datas,
 	});
 };

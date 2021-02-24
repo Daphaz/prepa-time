@@ -1,0 +1,231 @@
+.addPreparation {
+	display: flex;
+	justify-content: center;
+	padding-top: 1rem;
+}
+.form {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+.card {
+	text-align: center;
+	padding: 1rem;
+	width: 60%;
+}
+.container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.row,
+.rowNested {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+.rowNested {
+	width: 50%;
+}
+.iconValid {
+	font-size: 10rem !important;
+	color: var(--green-color);
+}
+.iconInValid {
+	font-size: 10rem !important;
+	color: var(--red-color);
+}
+.formGroup,
+.inpRow {
+	width: 100%;
+	position: relative;
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+.inpRow {
+	width: 50%;
+}
+.formGroup select,
+.inpRow select {
+	width: 100%;
+	margin-bottom: 1rem;
+	width: 100%;
+	padding: 0.5rem 0.25rem;
+	border: none;
+	border-bottom: 1px solid var(--black-color);
+	background-color: transparent;
+	font-size: 1rem;
+}
+.formGroup select:focus,
+.inpRow select:focus {
+	outline: none;
+}
+.formGroup label,
+.inpRow label {
+	text-transform: uppercase;
+	font-size: 1rem;
+	font-weight: bold;
+	text-align: left;
+}
+.formGroup span,
+.inpRow span {
+	background-color: var(--red-color);
+	color: var(--white-color);
+	padding: 0rem 0.25rem;
+	font-size: 1rem;
+	line-height: 150%;
+}
+.inpText {
+	margin-bottom: 1rem;
+	width: 100%;
+	padding: 0.5rem 0.25rem;
+	border: none;
+	border-bottom: 1px solid var(--black-color);
+	background-color: transparent;
+	font-size: 1rem;
+}
+.inpText:focus {
+	outline: none;
+}
+.areaContainer {
+	display: flex;
+	align-items: flex-end;
+	width: 100%;
+	height: 60px;
+	border-bottom: 1px solid var(--black-color);
+	overflow: hidden;
+}
+.formGroup textarea {
+	resize: none;
+	color: var(--black-color);
+	font: 400 1rem var(--pop-font);
+	border: none;
+	outline: none;
+	padding-top: 10px;
+	width: 100%;
+	height: 40px;
+	background-color: transparent;
+}
+.btn,
+.btnAdd {
+	cursor: pointer;
+	margin-top: 1.5rem;
+	border: none;
+	border-radius: 5px;
+	background-color: var(--primary-color);
+	color: var(--white-color);
+	padding: 10px 15px;
+	font-size: 18px;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-family: var(--pop-font);
+	width: 50%;
+	margin-right: auto;
+	margin-left: auto;
+}
+.btn:focus,
+.btnAdd:focus {
+	outline: none;
+}
+.btn:disabled,
+.btnAdd:disabled {
+	cursor: not-allowed;
+	background-color: var(--grey-color);
+	color: var(--white-color);
+}
+
+/* Preparation ID */
+
+.preparationId {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.preparationId h2 {
+	width: 100%;
+	text-align: center;
+	font-size: 1.75rem;
+	color: var(--primary-color);
+}
+.containerBtn {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
+.btnAdd {
+	margin: 1rem;
+	width: 100%;
+	max-width: 400px;
+}
+.imgContainer {
+	margin: 0.5rem;
+	width: 100%;
+	max-width: 500px;
+	overflow: hidden;
+	border-radius: 3px;
+}
+.imgContainer img {
+	object-fit: cover;
+}
+.sectionIng {
+	margin-top: 0.5rem;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.spanError {
+	position: relative;
+	margin-top: 1rem;
+	width: 80%;
+	text-align: center;
+	padding: 0.2rem 0.5rem;
+	border-radius: 5px;
+	background-color: var(--red-color);
+	color: var(--white-color);
+	font-size: 1.2rem;
+	font-weight: 500;
+}
+.spanError::after {
+	display: block;
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 0%;
+	background-color: rgba(255, 255, 255, 0.2);
+	animation: error 3s ease forwards;
+}
+
+@keyframes error {
+	0% {
+		width: 0%;
+	}
+	100% {
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.btn {
+		width: 100%;
+	}
+	.inpRow {
+		width: 100%;
+	}
+	.rowNested {
+		width: 100%;
+	}
+	.spanError {
+		width: 100%;
+		font-size: 1rem;
+	}
+}
