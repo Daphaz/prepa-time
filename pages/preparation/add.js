@@ -6,8 +6,10 @@ import { ProtectedRoute } from "../../auth/protectedRoute";
 import { useForm } from "react-hook-form";
 import useAuth from "../../auth/context";
 import { apiPost } from "../../auth/axios";
+import { useRouter } from "next/router";
 
 const Add = () => {
+	const router = useRouter();
 	const { isAuthenticated } = useAuth();
 	const {
 		register,
@@ -33,7 +35,7 @@ const Add = () => {
 		}),
 		image_url: register({
 			pattern: {
-				value: /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm,
+				value: /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm,
 				message: "utiliser une url valide",
 			},
 		}),
@@ -59,6 +61,7 @@ const Add = () => {
 				setValue("title", "");
 				setValue("description", "");
 				setValue("image_url", "");
+				router.push("/preparation");
 			} else {
 				setError("image_url", {
 					type: "manual",

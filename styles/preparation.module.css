@@ -15,10 +15,10 @@
 	flex-wrap: wrap;
 }
 .item {
+	cursor: pointer;
 	margin: 0.5rem;
 }
 .imageCard {
-	cursor: pointer;
 	overflow: hidden;
 	width: 100%;
 	max-width: 400px;

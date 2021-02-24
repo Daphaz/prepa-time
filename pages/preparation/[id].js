@@ -14,11 +14,40 @@ const Steps = () => {
 				<Layout>
 					<div className="container">
 						<section className={styles.addPreparation}>
-							<Card title="Ajouter une étape">
+							<Card title="Ajouter des ingredients">
 								<form className={styles.form}>
-									<div className={styles.formGroup}>
-										<label htmlFor="title">Titre</label>
-										<input type="text" id="title" className={styles.inpText} />
+									<div className={styles.row}>
+										<div className={styles.inpRow}>
+											<label htmlFor="ingredients">Ingrédients</label>
+											<input
+												type="text"
+												id="ingredients"
+												className={styles.inpText}
+											/>
+										</div>
+										<div className={styles.rowNested}>
+											<div className={styles.inpRow}>
+												<label htmlFor="quantity">Quantité</label>
+												<input
+													type="number"
+													id="quantity"
+													className={styles.inpText}
+												/>
+											</div>
+											<div className={styles.inpRow}>
+												<label htmlFor="quantity">Unité</label>
+												<select>
+													<option value="0">choisir</option>
+													<option value="G">gramme</option>
+													<option value="KG">kilo</option>
+													<option value="ML">millilitre</option>
+													<option value="CL">centilitre</option>
+													<option value="L">litre</option>
+													<option value="ce. à café">cuiellère à café</option>
+													<option value="ce. à soupe">cuiellère à soupe</option>
+												</select>
+											</div>
+										</div>
 									</div>
 									<div className={styles.formGroup}>
 										<label htmlFor="description">Description</label>
@@ -27,7 +56,7 @@ const Steps = () => {
 												name="description"
 												id="description"
 												minLength="1"
-												maxLength="510"></textarea>
+												maxLength="1500"></textarea>
 										</div>
 									</div>
 									<div className={styles.formGroup}>
@@ -37,10 +66,6 @@ const Steps = () => {
 											id="imageUrl"
 											className={styles.inpText}
 										/>
-									</div>
-									<div className={styles.formGroup}>
-										<label htmlFor="time">Temps</label>
-										<DateTime />
 									</div>
 									<button title="btn" type="submit" className={styles.btn}>
 										Valider

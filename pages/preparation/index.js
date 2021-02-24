@@ -28,6 +28,10 @@ const Preparation = () => {
 		router.push("/preparation/add");
 	};
 
+	const handleItem = (id) => {
+		router.push(`/preparation/${id}`);
+	};
+
 	return (
 		<>
 			{isAuthenticated && (
@@ -38,7 +42,10 @@ const Preparation = () => {
 							{items ? (
 								<div className={styles.row}>
 									{items.map((item) => (
-										<div className={styles.item} key={item._id}>
+										<div
+											className={styles.item}
+											key={item._id}
+											onClick={() => handleItem(item._id)}>
 											<Card title={item.title}>
 												{item.image_url && (
 													<div className={styles.imageCard}>

@@ -18,6 +18,16 @@
 	justify-content: center;
 	align-items: center;
 }
+.row,
+.rowNested {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+.rowNested {
+	width: 50%;
+}
 .iconValid {
 	font-size: 10rem !important;
 	color: var(--green-color);
@@ -26,7 +36,8 @@
 	font-size: 10rem !important;
 	color: var(--red-color);
 }
-.formGroup {
+.formGroup,
+.inpRow {
 	width: 100%;
 	position: relative;
 	padding: 1rem;
@@ -34,13 +45,33 @@
 	flex-direction: column;
 	align-items: flex-start;
 }
-.formGroup label {
+.inpRow {
+	width: 50%;
+}
+.formGroup select,
+.inpRow select {
+	width: 100%;
+	margin-bottom: 1rem;
+	width: 100%;
+	padding: 0.5rem 0.25rem;
+	border: none;
+	border-bottom: 1px solid var(--black-color);
+	background-color: transparent;
+	font-size: 1rem;
+}
+.formGroup select:focus,
+.inpRow select:focus {
+	outline: none;
+}
+.formGroup label,
+.inpRow label {
 	text-transform: uppercase;
 	font-size: 1rem;
 	font-weight: bold;
 	text-align: left;
 }
-.formGroup span {
+.formGroup span,
+.inpRow span {
 	background-color: var(--red-color);
 	color: var(--white-color);
 	padding: 0rem 0.25rem;
@@ -104,6 +135,12 @@
 }
 @media screen and (max-width: 768px) {
 	.btn {
+		width: 100%;
+	}
+	.inpRow {
+		width: 100%;
+	}
+	.rowNested {
 		width: 100%;
 	}
 }
