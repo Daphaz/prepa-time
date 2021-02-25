@@ -17,9 +17,11 @@ const resetPass = (username, token) => {
                 <h4>Bonjour <b>${username}</b></h4>
                 
                 <p>
-                  Cliquez sur ce lien pour crée un nouveaux mot de passe:</br></br>
-                  <a href=${url}>${url}</a>
+                  Cliquez sur ce lien pour crée un nouveaux mot de passe:
                 </p>
+                <span>
+                  <a href=${url}>${url}</a>
+                </span>
             </div>
         </div>    
     </body>

@@ -22,14 +22,14 @@ const sendEmail = async (res, to, subject, html, sucessMessage) => {
 	try {
 		const response = await transporter.sendMail(mailOptions);
 		if (response) {
-			res.json({
+			res.status(200).send({
 				sucess: true,
 				data: sucessMessage,
 			});
 			return;
 		}
 	} catch (error) {
-		console.log("ConfigEmail: ", error);
+		res.status(error.code).send(error.message);
 	}
 };
 

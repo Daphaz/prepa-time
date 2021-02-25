@@ -5,17 +5,14 @@ dbConnect();
 
 export default async (req, res) => {
 	const { method } = req;
-	const { id } = req.query;
+	//const { id } = req.query;
 
 	switch (method) {
 		case "GET":
 			try {
 				controllerUsers.userInfo(req, res);
-			} catch (err) {
-				res.status(400).json({
-					success: false,
-					data: err,
-				});
+			} catch (error) {
+				res.status(error.code).send(error.message);
 			}
 			break;
 		case "POST":
