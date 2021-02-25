@@ -21,10 +21,12 @@ const prepaSchema = new Schema({
 	},
 	id_user: String,
 	time: Date,
-	steps_id: {
-		type: Array,
-		default: [],
-	},
+	steps_id: [
+		{
+			type: mongoose.SchemaTypes.ObjectId,
+			ref: "steps",
+		},
+	],
 	finish: {
 		type: Boolean,
 		default: false,

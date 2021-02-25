@@ -45,33 +45,17 @@ const modelStep = {
 					image_url,
 					id_user: id,
 				});
-				if (response) {
-					const { prepas: Prepas } = mongoose.connection.models;
-					const resp = await Prepas.findOne({ _id: prepa, id_user: id });
-					if (resp) {
-						await Prepas.updateOne(
-							{ _id: prepa, id_user: id },
-							{
-								steps_id: [...resp.steps_id, response._id],
-							}
-						);
-						res.json({
-							sucess: true,
-							data: "Nouvelle etape ajoutée",
-						});
-						return;
-					} else {
-						res.json({
-							sucess: false,
-						});
-						return;
-					}
-				} else {
-					res.json({
-						sucess: false,
-					});
-					return;
-				}
+				const { prepas: Prepas } = mongoose.connection.models;
+				await Prepas.findByIdAndUpdate(prepa, {
+					$push: {
+						steps_id: response._id,
+					},
+				});
+				res.json({
+					sucess: true,
+					data: "Nouvelle etape ajoutée",
+				});
+				return;
 			} else {
 				const response = await steps.create({
 					title,
@@ -80,36 +64,24 @@ const modelStep = {
 					time,
 					id_user: id,
 				});
-				if (response) {
-					const { prepas: Prepas } = mongoose.connection.models;
-					const resp = await Prepas.findOne({ _id: prepa, id_user: id });
-					if (resp) {
-						await Prepas.updateOne(
-							{ _id: prepa, id_user: id },
-							{
-								steps_id: [...resp.steps_id, response._id],
-							}
-						);
-						res.json({
-							sucess: true,
-							data: "Nouvelle etape ajoutée",
-						});
-						return;
-					} else {
-						res.json({
-							sucess: false,
-						});
-						return;
-					}
-				} else {
-					res.json({
-						sucess: false,
-					});
-					return;
-				}
+				const { prepas: Prepas } = mongoose.connection.models;
+				await Prepas.findByIdAndUpdate(prepa, {
+					$push: {
+						steps_id: response._id,
+					},
+				});
+				res.json({
+					sucess: true,
+					data: "Nouvelle etape ajoutée",
+				});
+				return;
 			}
 		} catch (error) {
 			console.log("StepAdd: ", error);
+			res.json({
+				sucess: false,
+			});
+			return;
 		}
 	},
 	get: async (req, res) => {
