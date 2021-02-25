@@ -116,8 +116,8 @@ const modelStep = {
 		const id = await VerifyJWT(req, res);
 		const { prepa } = req.query;
 		if (prepa) {
-			const step = await ingredients.find({ id_user: id, prepa: prepa });
-			if (ign.length > 0) {
+			const step = await steps.find({ id_user: id, prepa: prepa });
+			if (step.length > 0) {
 				res.json({
 					sucess: true,
 					data: step,
