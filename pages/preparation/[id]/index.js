@@ -9,13 +9,21 @@ import { useRouter } from "next/router";
 import CloseIcon from "@material-ui/icons/Close";
 import EditIcon from "@material-ui/icons/Edit";
 
-const Id = ({ info, dataIngredient }) => {
+const Id = ({ info, dataIngredient, dataSteps }) => {
 	const [error, setError] = useState({ status: false, message: "" });
 	const router = useRouter();
 	const { isAuthenticated } = useAuth();
+
+	console.log(dataSteps);
+
 	const handleAddIngredient = () => {
 		router.push(`/preparation/${info._id}/ingredient/add`);
 	};
+
+	const handleAddStep = () => {
+		router.push(`/preparation/${info._id}/step/add`);
+	};
+
 	const handleDelete = async (ingredient_id) => {
 		const { data } = await apiDelete("/api/ingredient", { ingredient_id });
 		if (data.sucess) {
@@ -64,7 +72,8 @@ const Id = ({ info, dataIngredient }) => {
 										</button>
 										<button
 											className={styles.btnAdd}
-											disabled={!dataIngredient.length > 0}>
+											disabled={!dataIngredient.length > 0}
+											onClick={handleAddStep}>
 											Ajouter une Etape
 										</button>
 									</div>
@@ -118,6 +127,37 @@ const Id = ({ info, dataIngredient }) => {
 										<h2>Commencer par Ajouter des ingredients</h2>
 									</section>
 								)}
+								{dataSteps && dataSteps.length > 0 && (
+									<section>
+										<h2>Etapes ajoutée</h2>
+										<div>
+											{dataSteps.map((step, k) => (
+												<div key={step._id}>
+													<h3>{step.title}</h3>
+													<div>
+														<img
+															src={step.image_url}
+															alt={`image etape ${k + 1}`}
+														/>
+													</div>
+													<p>{step.description}</p>
+													<div>
+														<div>
+															<span>Etape terminer le :{step.time}</span>
+														</div>
+														<div>
+															<span>{`Etape ${k + 1}`}</span>
+														</div>
+													</div>
+													<div>
+														<button>Modifier</button>
+														<button>Supprimer</button>
+													</div>
+												</div>
+											))}
+										</div>
+									</section>
+								)}
 							</>
 						)}
 					</div>
@@ -138,17 +178,35 @@ export const getServerSideProps = async (ctx) => {
 			const { data: res } = await api.get(`/api/ingredient?prepa=${id}`);
 			if (res.sucess) {
 				const dataIngredient = res.data;
-				return {
-					props: {
-						info,
-						dataIngredient,
+				const { data: steps } = await api.get(`/api/step`, {
+					params: {
+						prepa: info._id,
 					},
-				};
+				});
+				if (steps.sucess) {
+					const dataSteps = steps.data;
+					return {
+						props: {
+							info,
+							dataIngredient,
+							dataSteps,
+						},
+					};
+				} else {
+					return {
+						props: {
+							info,
+							dataIngredient,
+							dataSteps: null,
+						},
+					};
+				}
 			} else {
 				return {
 					props: {
 						info,
-						dataIngredient: undefined,
+						dataIngredient: null,
+						dataSteps: null,
 					},
 				};
 			}
