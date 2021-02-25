@@ -16,6 +16,11 @@ const Id = ({ info, dataIngredient }) => {
 	const handleAddIngredient = () => {
 		router.push(`/preparation/${info._id}/ingredient/add`);
 	};
+
+	const handleAddStep = () => {
+		router.push(`/preparation/${info._id}/step/add`);
+	};
+
 	const handleDelete = async (ingredient_id) => {
 		const { data } = await apiDelete("/api/ingredient", { ingredient_id });
 		if (data.sucess) {
@@ -64,7 +69,8 @@ const Id = ({ info, dataIngredient }) => {
 										</button>
 										<button
 											className={styles.btnAdd}
-											disabled={!dataIngredient.length > 0}>
+											disabled={!dataIngredient.length > 0}
+											onClick={handleAddStep}>
 											Ajouter une Etape
 										</button>
 									</div>
