@@ -10,11 +10,8 @@ export default async (req, res) => {
 		case "GET":
 			try {
 				controllerPrepa.getOne(req, res);
-			} catch (err) {
-				res.status(400).json({
-					success: false,
-					data: err,
-				});
+			} catch (error) {
+				res.status(error.code).send(error.message);
 			}
 			break;
 		case "POST":

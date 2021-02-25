@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 export const Users =
-	mongoose.model("Users") ||
+	mongoose.models.Users ||
 	mongoose.model(
 		"Users",
 		new mongoose.Schema({
@@ -30,7 +30,7 @@ export const Users =
 	);
 
 export const ResetPass =
-	mongoose.model("Resets") ||
+	mongoose.models.Resets ||
 	mongoose.model(
 		"Resets",
 		new mongoose.Schema({

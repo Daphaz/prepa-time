@@ -58,7 +58,6 @@ const StepAdd = ({ prepaId }) => {
 			});
 		} else {
 			try {
-				console.log(d);
 				if (d.image_url !== "") {
 					const query = {
 						title: d.title,

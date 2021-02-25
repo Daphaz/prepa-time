@@ -15,21 +15,15 @@ export default async (req, res) => {
 		case "POST":
 			try {
 				controllerUsers.tokenReset(req, res);
-			} catch (err) {
-				res.status(400).json({
-					success: false,
-					data: err,
-				});
+			} catch (error) {
+				res.status(error.code).send(error.message);
 			}
 			break;
 		case "PUT":
 			try {
 				controllerUsers.reset(req, res);
 			} catch (error) {
-				res.status(400).json({
-					success: false,
-					data: err,
-				});
+				res.status(error.code).send(error.message);
 			}
 			break;
 		case "DELETE":

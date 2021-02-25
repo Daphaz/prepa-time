@@ -14,8 +14,6 @@ const Id = ({ info, dataIngredient, dataSteps }) => {
 	const router = useRouter();
 	const { isAuthenticated } = useAuth();
 
-	console.log(dataSteps);
-
 	const handleAddIngredient = () => {
 		router.push(`/preparation/${info._id}/ingredient/add`);
 	};
@@ -72,7 +70,7 @@ const Id = ({ info, dataIngredient, dataSteps }) => {
 										</button>
 										<button
 											className={styles.btnAdd}
-											disabled={!dataIngredient.length > 0}
+											disabled={dataIngredient ? false : true}
 											onClick={handleAddStep}>
 											Ajouter une Etape
 										</button>

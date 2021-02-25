@@ -87,6 +87,7 @@ const AddIngredient = ({ prepaId }) => {
 												<label htmlFor="quantity">Quantité</label>
 												<input
 													type="number"
+													step="0.01"
 													id="quantity"
 													name="quantity"
 													ref={ing.quantity}

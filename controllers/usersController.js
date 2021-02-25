@@ -52,7 +52,6 @@ const controllerUsers = {
 	},
 	login: async (req, res) => {
 		const { username, password } = req.body;
-
 		try {
 			if (username && password) {
 				const user = await Users.findOne({ username });
