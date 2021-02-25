@@ -35,6 +35,7 @@ export const loginLogic = () => {
 	const onSubmit = async (d) => {
 		try {
 			const { data } = await apiPost("/api/login", d);
+			console.log(data);
 			if (data.success) {
 				login(data.data);
 			} else {
@@ -47,6 +48,12 @@ export const loginLogic = () => {
 			}
 		} catch (error) {
 			console.log("Login: ", error);
+			setError("password", {
+				type: "manual",
+				message: "Probleme avec le serveur veuillez recommencer",
+			});
+			setValue("username", "");
+			setValue("password", "");
 		}
 	};
 
@@ -152,6 +159,13 @@ export const signupLogic = () => {
 			}
 		} catch (error) {
 			console.log("Signup: ", error);
+			setError("password", {
+				type: "manual",
+				message: "Probleme avec le serveur veuillez recommencer",
+			});
+			setValue("email", "");
+			setValue("username", "");
+			setValue("password", "");
 		}
 	};
 
@@ -215,6 +229,11 @@ export const forgotLogic = () => {
 			}
 		} catch (error) {
 			console.log("Forgot: ", error);
+			setError("username", {
+				type: "manual",
+				message: "Probleme avec le serveur veuillez recommencer",
+			});
+			setValue("username", "");
 		}
 	};
 
@@ -291,6 +310,12 @@ export const ResetLogic = () => {
 				}
 			} catch (error) {
 				console.log("[id]/reset: ", error);
+				setError("password", {
+					type: "manual",
+					message: "Probleme avec le serveur veuillez recommencer",
+				});
+				setValue("password", "");
+				setValue("pass2", "");
 			}
 		} else {
 			setError("pass2", {

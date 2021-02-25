@@ -1,14 +1,65 @@
-import modelPrepa from "../models/prepa/Prepa";
+import { Prepas } from "../models";
+import VerifyJWT from "../utils/verifyJWT";
 
 const controllerPrepa = {
-	add: (req, res) => {
-		modelPrepa.add(req, res);
+	add: async (req, res) => {
+		const { title, description, image_url, type } = req.body;
+		try {
+			const id = await VerifyJWT(req, res);
+			const response = await Prepas.create({
+				title,
+				description,
+				image_url,
+				id_user: id,
+				type,
+			});
+			if (response) {
+				res.status(201).send({
+					sucess: true,
+					data: "Nouvelle preparation créer",
+				});
+				return;
+			}
+			res.status(204).send();
+			return;
+		} catch (error) {
+			res.status(error.code).send(error.message);
+		}
 	},
-	get: (req, res) => {
-		modelPrepa.get(req, res);
+	get: async (req, res) => {
+		try {
+			const id = await VerifyJWT(req, res);
+			const items = await Prepas.find({ id_user: id });
+			if (items.length > 0) {
+				res.status(200).send({
+					sucess: true,
+					data: items,
+				});
+				return;
+			}
+			res.status(204).send();
+			return;
+		} catch (error) {
+			res.status(error.code).send(error.message);
+		}
 	},
-	getOne: (req, res) => {
-		modelPrepa.getOne(req, res);
+	getOne: async (req, res) => {
+		try {
+			const id_user = await VerifyJWT(req, res);
+			const { id } = req.query;
+			const prepa = await Prepas.findOne({ id_user: id_user, _id: id });
+			if (prepa) {
+				res.status(200).send({
+					sucess: true,
+					data: prepa,
+				});
+				return;
+			}
+			res.status(204).send();
+			return;
+		} catch (error) {
+			res.status(error.code).send(error.message);
+		}
 	},
 };
 
