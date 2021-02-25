@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import axios from "axios";
+import api from "./axios";
 import { setCookie, removeCookie, getCookieFromBrowser } from "./cookies";
 import jwt from "jwt-decode";
 import Router from "next/router";
@@ -15,9 +15,9 @@ export const AuthProvider = ({ children }) => {
 			const token = getCookieFromBrowser("token");
 			if (token) {
 				try {
-					axios.defaults.headers.Authorization = token;
+					api.defaults.headers.Authorization = token;
 					const userData = jwt(token);
-					const { data: user } = await axios.get(`/api/users/${userData.id}`);
+					const { data: user } = await api.get(`/api/users/${userData.id}`);
 					if (user) setUser(user.data);
 				} catch (e) {
 					if (e.response.status === 401) {
@@ -35,9 +35,9 @@ export const AuthProvider = ({ children }) => {
 	const login = async (token) => {
 		if (token) {
 			setCookie("token", token);
-			axios.defaults.headers.Authorization = token;
+			api.defaults.headers.Authorization = token;
 			const userData = jwt(token);
-			const { data: user } = await axios.get(`/api/users/${userData.id}`);
+			const { data: user } = await api.get(`/api/users/${userData.id}`);
 			setUser(user.data);
 			await Router.push("/");
 		}

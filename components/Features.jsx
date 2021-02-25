@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "../styles/components/features.module.css";
+import Image from "next/image";
 
 export const Features = () => {
 	return (
@@ -15,11 +16,11 @@ export const Features = () => {
 				</div>
 				<div className="row">
 					<div className={styles.pics}>
-						<img
-							src="https://www.flaticon.com/svg/vstatic/svg/4245/4245538.svg?token=exp=1613855421~hmac=50b1b7c1fcddf05caa30264311a1a614"
-							alt="icon"
-							width="70px"
-							height="auto"
+						<Image
+							src="/schedule.svg"
+							alt="Programmer icon"
+							width={70}
+							height={70}
 						/>
 						<h3>Programmer</h3>
 						<p>
@@ -28,11 +29,11 @@ export const Features = () => {
 						</p>
 					</div>
 					<div className={styles.pics}>
-						<img
-							src="https://www.flaticon.com/svg/vstatic/svg/4245/4245538.svg?token=exp=1613855421~hmac=50b1b7c1fcddf05caa30264311a1a614"
-							alt="icon"
-							width="70px"
-							height="auto"
+						<Image
+							src="/schedule.svg"
+							alt="Programmer icon"
+							width={70}
+							height={70}
 						/>
 						<h3>Programmer</h3>
 						<p>
@@ -41,11 +42,11 @@ export const Features = () => {
 						</p>
 					</div>
 					<div className={styles.pics}>
-						<img
-							src="https://www.flaticon.com/svg/vstatic/svg/4245/4245538.svg?token=exp=1613855421~hmac=50b1b7c1fcddf05caa30264311a1a614"
-							alt="icon"
-							width="70px"
-							height="auto"
+						<Image
+							src="/schedule.svg"
+							alt="Programmer icon"
+							width={70}
+							height={70}
 						/>
 						<h3>Programmer</h3>
 						<p>

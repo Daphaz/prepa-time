@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import Head from "next/head";
 import { AuthProvider } from "../auth/context";
+import { FormProvider } from "../auth/formContext";
 
 function MyApp({ Component, pageProps }) {
 	return (
@@ -13,7 +14,9 @@ function MyApp({ Component, pageProps }) {
 				/>
 			</Head>
 			<AuthProvider>
-				<Component {...pageProps} />
+				<FormProvider>
+					<Component {...pageProps} />
+				</FormProvider>
 			</AuthProvider>
 		</>
 	);

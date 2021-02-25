@@ -21,6 +21,7 @@
 	justify-content: center;
 }
 .formGroup {
+	position: relative;
 	margin-top: 1rem;
 	display: flex;
 	flex-direction: column;
@@ -37,6 +38,7 @@
 	text-transform: uppercase;
 	font-size: 1rem;
 	font-weight: bold;
+	text-align: left;
 }
 .formGroup input {
 	margin-bottom: 1rem;
@@ -79,9 +81,31 @@
 	font-size: 10rem !important;
 	color: var(--green-color);
 }
+.iconInValid {
+	font-size: 10rem !important;
+	color: var(--red-color);
+}
+.iconEye {
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	right: 0;
+	color: var(--primary-color);
+}
 .card h3 {
 	text-align: center;
 	font-size: 2rem;
+}
+.links {
+	padding: 1.5rem 0;
+	width: 100%;
+	text-align: left;
+}
+.links a {
+	text-decoration: underline;
+	font-size: 1.2rem;
+	font-weight: 500;
+	color: var(--primary-color);
 }
 
 @media screen and (max-width: 768px) {
@@ -96,5 +120,14 @@
 @media screen and (max-width: 425px) {
 	.container {
 		margin-top: 0;
+	}
+	.iconValid {
+		font-size: 5rem !important;
+	}
+	.iconInValid {
+		font-size: 5rem !important;
+	}
+	.card h3 {
+		font-size: 1.25rem;
 	}
 }

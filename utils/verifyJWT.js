@@ -2,7 +2,13 @@ import jwt from "jsonwebtoken";
 
 const VerifyJWT = (req, res) =>
 	new Promise((resolve, reject) => {
-		const token = req.headers.authorization;
+		let token;
+		if (req.headers.authorization || req.headers.cookie) {
+			token =
+				req.headers.authorization || req.headers.cookie.split("token=")[1];
+		} else {
+			token = undefined;
+		}
 
 		if (!token) {
 			res.json({

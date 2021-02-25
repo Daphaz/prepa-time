@@ -30,3 +30,4 @@ mongoose | simply use mongodb
 #### Versions
 
 - v0.0.1 : System auth / autorisation login and signup
+- v0.0.2 : Add REST api mongodb / form for all features

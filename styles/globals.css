@@ -31,6 +31,10 @@ body {
 	overflow-x: hidden;
 }
 
+main {
+	padding-top: 4rem;
+}
+
 a {
 	position: relative;
 	color: inherit;
@@ -78,18 +82,29 @@ h6 {
 }
 
 /*mobile menu*/
+.bodyOpen {
+	overflow: hidden;
+}
 .isopen {
 	transform: translateY(0) !important;
 }
 .bgMenu {
 	position: absolute;
-	top: -55%;
+	top: 0;
 	left: 0;
-	width: 100%;
+	width: 100vw;
 	height: 100%;
 	background-color: var(--primary-color);
-	transform: scale(2);
-	border-radius: 0 0 999px 999px;
+	transform: translateY(-110px);
+}
+.bgMenu svg {
+	position: absolute;
+	left: -100px;
+	right: 0;
+	bottom: -195px;
+	fill: var(--primary-color);
+	width: 1000px;
+	height: 320px;
 }
 .menuOpen span:first-child {
 	transform: translate(10px, 10px) rotate(45deg);
@@ -99,4 +114,18 @@ h6 {
 }
 .menuOpen span:nth-child(2) {
 	width: 0% !important;
+}
+
+/*Datepicker*/
+.MuiFormControl-root {
+	width: 100%;
+}
+.MuiInputBase-input .MuiInput-input {
+	border-bottom: none !important;
+}
+.MuiInput-underline:before {
+	border-bottom: 1px solid var(--black-color) !important;
+}
+.MuiInput-underline:after {
+	border-bottom: 2px solid var(--primary-color) !important;
 }
