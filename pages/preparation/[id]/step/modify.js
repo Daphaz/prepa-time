@@ -3,26 +3,17 @@ import { Layout } from "../../../../components/Layout";
 import { Card } from "../../../../components/Card";
 import styles from "../../../../styles/formPreparation.module.css";
 import useAuth from "../../../../auth/context";
-import { apiPost } from "../../../../auth/axios";
-import { useForm, Controller } from "react-hook-form";
-import TextField from "@material-ui/core/TextField";
-import dateFormat from "dateformat";
+import api, { apiPut } from "../../../../auth/axios";
+import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
+import { getCookieFromServer } from "../../../../auth/cookies";
 
-const StepAdd = ({ prepaId }) => {
+const StepModify = ({ prepaId, step }) => {
 	const router = useRouter();
 	const { isAuthenticated } = useAuth();
-	const now = new Date();
-	const date = `${dateFormat(now, "isoDate")}T${dateFormat(now, "isoTime")}`;
-	const {
-		register,
-		setError,
-		setValue,
-		clearErrors,
-		handleSubmit,
-		formState,
-		control,
-	} = useForm({ mode: "onChange" });
+	const { register, setError, clearErrors, handleSubmit, formState } = useForm({
+		mode: "onChange",
+	});
 	const { errors, isValid } = formState;
 
 	const inputStep = {
@@ -43,6 +34,7 @@ const StepAdd = ({ prepaId }) => {
 			},
 		}),
 		image_url: register({
+			required: "ajouter une image",
 			pattern: {
 				value: /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm,
 				message: "utiliser une url valide",
@@ -55,53 +47,24 @@ const StepAdd = ({ prepaId }) => {
 	};
 
 	const onSubmit = async (d) => {
-		try {
-			if (d.image_url !== "") {
-				const query = {
-					title: d.title,
-					description: d.description,
-					time: Number(d.time),
-					unit_time: d.jour,
-					prepa: prepaId,
-					image_url: d.image_url,
-				};
-				const { data } = await apiPost("/api/step", query);
-				if (data.sucess) {
-					router.push(`/preparation/${prepaId}`);
-				} else {
-					setError("time", {
-						type: "manual",
-						message: "Une erreur est survenue, veuillez réessayer",
-					});
-				}
-			}
-			const query = {
-				title: d.title,
-				description: d.description,
-				time: Number(d.time),
-				unit_time: d.jour,
-				prepa: prepaId,
-			};
-			const { data } = await apiPost("/api/step", query);
-			if (data.sucess) {
-				router.push(`/preparation/${prepaId}`);
-			} else {
-				setError("time", {
-					type: "manual",
-					message: "Une erreur est survenue, veuillez réessayer",
-				});
-			}
-		} catch (error) {
-			console.log("StepAdd: ", error);
+		const query = {
+			title: d.title,
+			description: d.description,
+			image_url: d.image_url,
+			time: Number(d.time),
+			unit_time: d.jour,
+			prepa: prepaId,
+			step_id: step._id,
+		};
+		const { data } = await apiPut("/api/step", query);
+
+		if (data.sucess) {
+			router.push(`/preparation/${prepaId}`);
+		} else {
 			setError("time", {
 				type: "manual",
-				message: "Une erreur est survenue, veuillez recommencer",
+				message: "Une erreur est survenue, veuillez réessayer",
 			});
-			setValue("title", "");
-			setValue("description", "");
-			setValue("image_url", "");
-			setValue("time", undefined);
-			setValue("jour", 0);
 		}
 	};
 
@@ -111,7 +74,7 @@ const StepAdd = ({ prepaId }) => {
 				<Layout>
 					<div className="container">
 						<section className={styles.addPreparation}>
-							<Card title="Ajouter une étape">
+							<Card title="Modification de l'étape">
 								<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
 									<div className={styles.formGroup}>
 										<label htmlFor="title">Titre</label>
@@ -122,6 +85,7 @@ const StepAdd = ({ prepaId }) => {
 											ref={inputStep.title}
 											className={styles.inpText}
 											onFocus={() => clearError("title")}
+											defaultValue={step.title}
 										/>
 										{errors.title && <span>{errors.title.message}</span>}
 									</div>
@@ -134,7 +98,8 @@ const StepAdd = ({ prepaId }) => {
 												minLength="1"
 												maxLength="510"
 												ref={inputStep.description}
-												onFocus={() => clearError("description")}></textarea>
+												onFocus={() => clearError("description")}
+												defaultValue={step.description}></textarea>
 										</div>
 										{errors.description && (
 											<span>{errors.description.message}</span>
@@ -149,6 +114,7 @@ const StepAdd = ({ prepaId }) => {
 											className={styles.inpText}
 											ref={inputStep.image_url}
 											onFocus={() => clearError("image_url")}
+											defaultValue={step.image_url}
 										/>
 										{errors.image_url && (
 											<span>{errors.image_url.message}</span>
@@ -164,13 +130,17 @@ const StepAdd = ({ prepaId }) => {
 												id="time"
 												ref={inputStep.time}
 												onFocus={() => clearError("time")}
+												defaultValue={step.time}
 											/>
 											<select
 												name="jour"
 												id="jour"
 												ref={inputStep.jour}
 												onFocus={() => clearError("jour")}>
-												<option value="0">Choisir</option>
+												<option value={step.unit_time}>
+													{step.unit_time.charAt(0).toUpperCase() +
+														step.unit_time.slice(1)}
+												</option>
 												<option value="minute">Minute</option>
 												<option value="heure">Heure</option>
 												<option value="jour">Jours</option>
@@ -197,24 +167,39 @@ const StepAdd = ({ prepaId }) => {
 	);
 };
 
-export const getServerSideProps = async (ctx) => {
-	const { id } = await ctx.query;
+export const getServerSideProps = async ({ query, req }) => {
+	const { id: prepaId, step: stepId } = await query;
+	const token = await getCookieFromServer("token", req);
+	if (token) {
+		api.defaults.headers.Authorization = token;
+		const { data } = await api.get("/api/step/id", {
+			params: {
+				step_id: stepId,
+				prepa: prepaId,
+			},
+		});
+		if (data.sucess) {
+			return {
+				props: {
+					prepaId,
+					step: data.data,
+				},
+			};
+		} else {
+			return {
+				props: {
+					prepaId,
+					step: null,
+				},
+			};
+		}
+	}
 	return {
 		props: {
-			prepaId: id,
+			prepaId,
+			step: null,
 		},
 	};
 };
 
-export default StepAdd;
-
-/*
-<Controller
-  as={
-    <TextField id="datetime-local" type="datetime-local" />
-  }
-  defaultValue={date}
-  name="time"
-  control={control}
-/>
-*/
+export default StepModify;

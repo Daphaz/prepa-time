@@ -41,26 +41,34 @@ const Preparation = () => {
 							<h2>Préparations</h2>
 							{items ? (
 								<div className={styles.row}>
-									{items.map((item) => (
-										<div
-											className={styles.item}
-											key={item._id}
-											onClick={() => handleItem(item._id)}>
-											<Card title={item.title}>
-												{item.image_url && (
-													<div className={styles.imageCard}>
-														<img src={item.image_url} width="100%" />
+									{items.map((item) => {
+										const parseCreatedAt = Date.parse(item.createdAt);
+										const parseUpdatedAt = Date.parse(item.updatedAt);
+										const date =
+											parseUpdatedAt > parseCreatedAt
+												? item.updatedAt
+												: item.createdAt;
+										return (
+											<div
+												className={styles.item}
+												key={item._id}
+												onClick={() => handleItem(item._id)}>
+												<Card title={item.title}>
+													{item.image_url && (
+														<div className={styles.imageCard}>
+															<img src={item.image_url} width="100%" />
+														</div>
+													)}
+													<div className={styles.footerCard}>
+														<span className={styles.typeItem}>{item.type}</span>
+														<span className={styles.createdAt}>
+															{prepaDate(date)}
+														</span>
 													</div>
-												)}
-												<div className={styles.footerCard}>
-													<span className={styles.typeItem}>{item.type}</span>
-													<span className={styles.createdAt}>
-														{prepaDate(item.createdAt)}
-													</span>
-												</div>
-											</Card>
-										</div>
-									))}
+												</Card>
+											</div>
+										);
+									})}
 								</div>
 							) : (
 								<h4>Vous n'avez pas encore de préparations</h4>

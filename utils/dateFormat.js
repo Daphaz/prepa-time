@@ -50,3 +50,8 @@ export const prepaDate = (now) => {
 	dateFormat.masks.prepaAdd = "dd mmmm yyyy";
 	return dateFormat(now, "prepaAdd");
 };
+
+export const stepDate = (now) => {
+	dateFormat.masks.stepAdd = 'dd mmmm yyyy "à" HH:MM';
+	return dateFormat(now, "stepAdd");
+};
