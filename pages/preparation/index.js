@@ -49,13 +49,19 @@ const Preparation = () => {
 												? item.updatedAt
 												: item.createdAt;
 										return (
-											<div
-												className={styles.item}
-												key={item._id}
-												onClick={() => handleItem(item._id)}>
+											<div className={styles.item} key={item._id}>
+												{item.finish ? (
+													<span className={styles.finishLabelValid}>
+														Terminer
+													</span>
+												) : (
+													<span className={styles.finishLabel}>en cour..</span>
+												)}
 												<Card title={item.title}>
 													{item.image_url && (
-														<div className={styles.imageCard}>
+														<div
+															className={styles.imageCard}
+															onClick={() => handleItem(item._id)}>
 															<img src={item.image_url} width="100%" />
 														</div>
 													)}

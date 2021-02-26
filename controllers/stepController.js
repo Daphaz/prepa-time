@@ -69,7 +69,7 @@ const controllerStep = {
 			res.status(204).send();
 			return;
 		} catch (error) {
-			res.status(error.code).send(error.message);
+			res.status(404).send();
 		}
 	},
 	getOne: async (req, res) => {
@@ -95,7 +95,7 @@ const controllerStep = {
 			res.status(204).send();
 			return;
 		} catch (error) {
-			res.status(error.code).send(error.message);
+			res.status(404).send();
 		}
 	},
 	delete: async (req, res) => {

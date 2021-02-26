@@ -15,10 +15,26 @@
 	flex-wrap: wrap;
 }
 .item {
-	cursor: pointer;
+	position: relative;
 	margin: 0.5rem;
 }
+.finishLabel,
+.finishLabelValid {
+	position: absolute;
+	top: -10px;
+	left: -5px;
+	background-color: var(--orange-color);
+	padding: 0 0.5rem;
+	border-radius: 3px;
+	box-shadow: 3px 3px 6px 2px rgba(0, 0, 0, 0.19);
+	-webkit-box-shadow: 3px 3px 6px 2px rgba(0, 0, 0, 0.19);
+	-moz-box-shadow: 3px 3px 6px 2px rgba(0, 0, 0, 0.19);
+}
+.finishLabelValid {
+	background-color: var(--green-color);
+}
 .imageCard {
+	cursor: pointer;
 	overflow: hidden;
 	width: 100%;
 	max-width: 400px;

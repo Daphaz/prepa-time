@@ -151,6 +151,7 @@
 	background-color: var(--orange-color);
 	color: var(--white-color);
 	text-transform: uppercase;
+	outline: none;
 }
 
 .preparationId {
@@ -165,6 +166,30 @@
 	font-size: 1.75rem;
 	color: var(--primary-color);
 }
+
+.preparationId img {
+	object-fit: cover;
+	margin: 1rem 0;
+}
+.preparationId p {
+	width: 100%;
+	text-align: left;
+	padding: 0.5rem;
+}
+.containerContent {
+	width: 100%;
+}
+.preparationId h3 {
+	width: 100%;
+	text-align: left;
+	font-size: 1.5rem;
+	color: var(--primary-color);
+}
+
+.stepLabel {
+	margin-bottom: 1rem;
+}
+
 .containerBtn {
 	width: 100%;
 	display: flex;

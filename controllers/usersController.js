@@ -77,7 +77,7 @@ const controllerUsers = {
 			res.status(204).send();
 			return;
 		} catch (error) {
-			res.status(error.code).send(error.message);
+			res.status(404).send();
 		}
 	},
 	userInfo: async (req, res) => {
@@ -102,7 +102,7 @@ const controllerUsers = {
 			res.status(204).send();
 			return;
 		} catch (error) {
-			res.status(error.code).send(error.message);
+			res.status(404).send();
 		}
 	},
 	forgot: async (req, res) => {

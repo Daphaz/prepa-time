@@ -40,7 +40,7 @@ const controllerPrepa = {
 			res.status(204).send();
 			return;
 		} catch (error) {
-			res.status(error.code).send(error.message);
+			res.status(204).send();
 		}
 	},
 	getOne: async (req, res) => {
@@ -53,6 +53,35 @@ const controllerPrepa = {
 					sucess: true,
 					data: prepa,
 				});
+				return;
+			}
+			res.status(204).send();
+			return;
+		} catch (error) {
+			res.status(204).send();
+		}
+	},
+	modify: async (req, res) => {
+		const date = Date.now();
+		try {
+			const id_user = await VerifyJWT(req, res);
+			const { prepaId, finish } = req.body;
+			if (finish) {
+				const prepa = await Prepas.findOneAndUpdate(
+					{ _id: prepaId, id_user },
+					{
+						finish,
+						updatedAt: date,
+					}
+				);
+				if (prepa) {
+					res.status(200).send({
+						sucess: true,
+						data: prepa,
+					});
+					return;
+				}
+				res.status(204).send();
 				return;
 			}
 			res.status(204).send();
