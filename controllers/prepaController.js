@@ -84,6 +84,19 @@ const controllerPrepa = {
 				res.status(204).send();
 				return;
 			}
+			const prepa = await Prepas.findOneAndUpdate(
+				{ _id: prepaId, id_user },
+				{
+					finish,
+				}
+			);
+			if (prepa) {
+				res.status(200).send({
+					sucess: true,
+					data: prepa,
+				});
+				return;
+			}
 			res.status(204).send();
 			return;
 		} catch (error) {

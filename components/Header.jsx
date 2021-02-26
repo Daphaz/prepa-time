@@ -13,7 +13,6 @@ export const Header = () => {
 	const handleMenuOpen = () => {
 		menuOpen.current.classList.toggle("isopen");
 		burger.current.classList.toggle("menuOpen");
-		document.body.classList.toggle("bodyOpen");
 	};
 	const handleLogo = () => {
 		router.push("/");

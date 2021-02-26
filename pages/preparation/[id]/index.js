@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Layout } from "../../../components/Layout";
 import { BtnReturn } from "../../../components/BtnReturn";
+import { BtnModify } from "../../../components/BtnModify";
 import styles from "../../../styles/formPreparation.module.css";
 import table from "../../../styles/components/table.module.css";
 import useAuth from "../../../auth/context";
@@ -82,10 +83,10 @@ const Id = ({ info, dataIngredient, dataSteps, err }) => {
 		router.push(`/preparation/${info._id}/step/modify?step=${step_id}`);
 	};
 
-	const handleFinish = async () => {
+	const handleFinish = async (value) => {
 		const { data } = await apiPut("/api/preparation", {
 			prepaId: info._id,
-			finish: true,
+			finish: value,
 		});
 		if (data.sucess) {
 			router.push(`/preparation/${info._id}`);
@@ -114,83 +115,82 @@ const Id = ({ info, dataIngredient, dataSteps, err }) => {
 					<div className="container">
 						<BtnReturn url={"/preparation"} />
 						{info.finish ? (
-							<section className={styles.preparationId}>
-								<h2>{info.title}</h2>
-								<img
-									src={info.image_url}
-									alt="banner image"
-									width="100%"
-									height="350px"
-								/>
-								<p>{info.description}</p>
-								<div className={styles.containerContent}>
-									<h3>La liste des ingredient</h3>
-									{dataIngredient.map((ing) => {
-										return (
-											<div className={table.receipe_table}>
-												<table>
-													<thead>
-														<tr>
-															<th>Ingredients</th>
-															<th>Quantité</th>
-														</tr>
-													</thead>
-													<tbody>
-														{dataIngredient.map((ing) => {
-															const unit = ing.unit !== "unité" ? ing.unit : "";
-															return (
-																<tr key={ing._id}>
-																	<td> {ing.title} </td>
-																	<td>{`${ing.quantity} ${unit}`}</td>
-																</tr>
-															);
-														})}
-													</tbody>
-												</table>
-											</div>
-										);
-									})}
-									<div>
+							<>
+								<BtnModify handleClick={() => handleFinish(false)} />
+								<section className={styles.preparationId}>
+									<h2>{info.title}</h2>
+									<img
+										src={info.image_url}
+										alt="banner image"
+										width="100%"
+										height="350px"
+									/>
+									<p>{info.description}</p>
+									<div className={styles.containerContent}>
+										<h3>La liste des ingredient</h3>
+										<div className={table.receipe_table}>
+											<table>
+												<thead>
+													<tr>
+														<th>Ingredients</th>
+														<th>Quantité</th>
+													</tr>
+												</thead>
+												<tbody>
+													{dataIngredient.map((ing) => {
+														const unit = ing.unit !== "unité" ? ing.unit : "";
+														return (
+															<tr key={ing._id}>
+																<td> {ing.title} </td>
+																<td>{`${ing.quantity} ${unit}`}</td>
+															</tr>
+														);
+													})}
+												</tbody>
+											</table>
+										</div>
 										<h3 className={styles.stepLabel}>Les étapes</h3>
-										{dataSteps.map((step, k) => {
-											const parseCreatedAt = Date.parse(step.createdAt);
-											const parseUpdatedAt = Date.parse(step.updatedAt);
-											const date =
-												parseUpdatedAt > parseCreatedAt
-													? step.updatedAt
-													: step.createdAt;
-											return (
-												<div key={step._id} className={styles.cardStep}>
-													<div className={styles.badgeStep}>{k + 1}</div>
-													<h3>{step.title}</h3>
-													<div>
-														<img
-															src={step.image_url}
-															alt={`image etape ${k + 1}`}
-														/>
-													</div>
-													<div className={styles.bodyCard}>
-														<div className={styles.descCard}>
-															<p>{step.description}</p>
+										<div className={styles.containerStep}>
+											{dataSteps.map((step, k) => {
+												const parseCreatedAt = Date.parse(step.createdAt);
+												const parseUpdatedAt = Date.parse(step.updatedAt);
+												const date =
+													parseUpdatedAt > parseCreatedAt
+														? step.updatedAt
+														: step.createdAt;
+												return (
+													<div key={step._id} className={styles.cardStep}>
+														<div className={styles.badgeStep}>{k + 1}</div>
+														<h3>{step.title}</h3>
+														<div>
+															<img
+																src={step.image_url}
+																alt={`image etape ${k + 1}`}
+															/>
 														</div>
-														<div className={styles.footerCard}>
-															<span>
-																Durée:
-																{` ${step.time} ${
-																	step.unit_time ? step.unit_time : ""
-																}`}
-															</span>
-															<span className={styles.fCreated}>
-																{stepDate(date)}
-															</span>
+														<div className={styles.bodyCard}>
+															<div className={styles.descCard}>
+																<p>{step.description}</p>
+															</div>
+															<div className={styles.footerCard}>
+																<span>
+																	Durée:
+																	{` ${step.time} ${
+																		step.unit_time ? step.unit_time : ""
+																	}`}
+																</span>
+																<span className={styles.fCreated}>
+																	{stepDate(date)}
+																</span>
+															</div>
 														</div>
 													</div>
-												</div>
-											);
-										})}
+												);
+											})}
+										</div>
 									</div>
-								</div>
-							</section>
+								</section>
+							</>
 						) : (
 							<>
 								<section className={styles.preparationId}>
@@ -204,7 +204,7 @@ const Id = ({ info, dataIngredient, dataSteps, err }) => {
 											<div className={styles.containerFinish}>
 												<button
 													className={styles.finishBtn}
-													onClick={handleFinish}>
+													onClick={() => handleFinish(true)}>
 													Terminer la preparation
 												</button>
 											</div>
@@ -353,7 +353,6 @@ export const getServerSideProps = async (ctx) => {
 	if (token) {
 		api.defaults.headers.Authorization = token;
 		const { data } = await api.get(`/api/preparation/${id}`);
-		console.log("DATA: ", data);
 		if (data.sucess) {
 			const info = data.data;
 			const { data: res } = await api.get(`/api/ingredient?prepa=${id}`);
