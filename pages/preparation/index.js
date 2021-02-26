@@ -53,7 +53,7 @@ const Preparation = () => {
 													</div>
 												)}
 												<div className={styles.footerCard}>
-													<span className={styles.type}>{item.type}</span>
+													<span className={styles.typeItem}>{item.type}</span>
 													<span className={styles.createdAt}>
 														{prepaDate(item.createdAt)}
 													</span>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Layout } from "../../../components/Layout";
-import styles from "../../../styles/addPreparation.module.css";
+import styles from "../../../styles/formPreparation.module.css";
 import table from "../../../styles/components/table.module.css";
 import useAuth from "../../../auth/context";
 import { getCookieFromServer } from "../../../auth/cookies";

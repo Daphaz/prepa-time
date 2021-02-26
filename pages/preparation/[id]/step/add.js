@@ -1,7 +1,7 @@
 import React from "react";
 import { Layout } from "../../../../components/Layout";
 import { Card } from "../../../../components/Card";
-import styles from "../../../../styles/addPreparation.module.css";
+import styles from "../../../../styles/formPreparation.module.css";
 import useAuth from "../../../../auth/context";
 import { apiPost } from "../../../../auth/axios";
 import { useForm, Controller } from "react-hook-form";

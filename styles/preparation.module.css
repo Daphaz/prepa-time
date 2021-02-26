@@ -63,7 +63,7 @@
 	justify-content: space-between;
 	align-items: flex-end;
 }
-.type {
+.typeItem {
 	text-transform: uppercase;
 	font-weight: bold;
 	color: var(--white-color);

@@ -1,7 +1,7 @@
 import React from "react";
 import { Layout } from "../../components/Layout";
 import { Card } from "../../components/Card";
-import styles from "../../styles/addPreparation.module.css";
+import styles from "../../styles/formPreparation.module.css";
 import { ProtectedRoute } from "../../auth/protectedRoute";
 import { useForm } from "react-hook-form";
 import useAuth from "../../auth/context";
