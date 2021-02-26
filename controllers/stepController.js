@@ -47,7 +47,7 @@ const controllerStep = {
 				return;
 			}
 		} catch (error) {
-			res.status(error.code).send(error.message);
+			res.status(204).send();
 		}
 	},
 	get: async (req, res) => {
@@ -99,18 +99,27 @@ const controllerStep = {
 		}
 	},
 	delete: async (req, res) => {
-		const { step_id } = req.body;
+		const { step_id, prepa_id } = req.body;
 		try {
 			const id = await VerifyJWT(req, res);
-			if (step_id) {
+			if (step_id && prepa_id) {
 				const response = await Steps.findOneAndDelete({
 					_id: step_id,
 					id_user: id,
 				});
 				if (response) {
-					res.status(200).send({
-						sucess: true,
+					const delId = await Prepas.findByIdAndUpdate(prepa_id, {
+						$pull: {
+							steps_id: step_id,
+						},
 					});
+					if (delId) {
+						res.status(200).send({
+							sucess: true,
+						});
+						return;
+					}
+					res.status(204).send();
 					return;
 				}
 				res.status(204).send();
@@ -119,7 +128,7 @@ const controllerStep = {
 			res.status(204).send();
 			return;
 		} catch (error) {
-			res.status(error.code).send(error.message);
+			res.status(204).send();
 		}
 	},
 	modify: async (req, res) => {
@@ -168,7 +177,7 @@ const controllerStep = {
 			res.status(204).send();
 			return;
 		} catch (error) {
-			res.status(error.code).send(error.message);
+			res.status(204).send();
 		}
 	},
 };

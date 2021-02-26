@@ -7,6 +7,7 @@ import useAuth from "../../../../auth/context";
 import { apiPost } from "../../../../auth/axios";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
+import ErrorPage from "next/error";
 
 const StepAdd = ({ prepaId }) => {
 	const router = useRouter();
@@ -103,7 +104,7 @@ const StepAdd = ({ prepaId }) => {
 
 	return (
 		<>
-			{isAuthenticated && (
+			{isAuthenticated ? (
 				<Layout>
 					<div className="container">
 						<BtnReturn url={`/preparation/${prepaId}`} />
@@ -189,6 +190,8 @@ const StepAdd = ({ prepaId }) => {
 						</section>
 					</div>
 				</Layout>
+			) : (
+				<ErrorPage statusCode={404} />
 			)}
 		</>
 	);

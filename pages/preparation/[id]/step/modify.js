@@ -8,6 +8,7 @@ import api, { apiPut } from "../../../../auth/axios";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { getCookieFromServer } from "../../../../auth/cookies";
+import ErrorPage from "next/error";
 
 const StepModify = ({ prepaId, step }) => {
 	const router = useRouter();
@@ -71,7 +72,7 @@ const StepModify = ({ prepaId, step }) => {
 
 	return (
 		<>
-			{isAuthenticated && (
+			{isAuthenticated ? (
 				<Layout>
 					<div className="container">
 						<BtnReturn url={`/preparation/${prepaId}`} />
@@ -164,6 +165,8 @@ const StepModify = ({ prepaId, step }) => {
 						</section>
 					</div>
 				</Layout>
+			) : (
+				<ErrorPage statusCode={404} />
 			)}
 		</>
 	);

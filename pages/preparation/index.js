@@ -7,6 +7,7 @@ import { Card } from "../../components/Card";
 import { apiGet } from "../../auth/axios";
 import { prepaDate } from "../../utils/dateFormat";
 import { useRouter } from "next/router";
+import EditIcon from "@material-ui/icons/Edit";
 
 const Preparation = () => {
 	const [items, setItems] = useState();
@@ -30,6 +31,10 @@ const Preparation = () => {
 
 	const handleItem = (id) => {
 		router.push(`/preparation/${id}`);
+	};
+
+	const handleEdit = (id) => {
+		router.push(`/preparation/${id}/edit`);
 	};
 
 	return (
@@ -57,6 +62,11 @@ const Preparation = () => {
 												) : (
 													<span className={styles.finishLabel}>en cour..</span>
 												)}
+												<span
+													className={styles.editLabel}
+													onClick={() => handleEdit(item._id)}>
+													<EditIcon fontSize="small" />
+												</span>
 												<Card title={item.title}>
 													{item.image_url && (
 														<div

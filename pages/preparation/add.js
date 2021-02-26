@@ -103,7 +103,7 @@ const Add = () => {
 										{errors.title && <span>{errors.title.message}</span>}
 									</div>
 									<div className={styles.formGroup}>
-										<label htmlFor="description">Description</label>
+										<label htmlFor="description">Conseil</label>
 										<div className={styles.areaContainer}>
 											<textarea
 												name="description"

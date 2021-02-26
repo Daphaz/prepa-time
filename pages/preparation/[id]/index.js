@@ -58,7 +58,10 @@ const Id = ({ info, dataIngredient, dataSteps, err }) => {
 	};
 
 	const handleDeleteStep = async (step_id) => {
-		const { data } = await apiDelete("/api/step", { step_id });
+		const { data } = await apiDelete("/api/step", {
+			step_id,
+			prepa_id: info._id,
+		});
 		if (data.sucess) {
 			router.push(`/preparation/${info._id}`);
 		} else {
@@ -108,13 +111,37 @@ const Id = ({ info, dataIngredient, dataSteps, err }) => {
 		}
 	};
 
+	const handleDeletePrepa = async () => {
+		const { data } = await apiDelete("/api/preparation", {
+			prepa_id: info._id,
+		});
+		if (data.sucess) {
+			router.push("/preparation");
+		} else {
+			setError({
+				status: true,
+				message: "Une erreur est survenue, veuillez réessayer plus tard",
+				section: "delete",
+			});
+			const timer = () => {
+				setError({
+					status: false,
+					message: "",
+					section: "",
+				});
+			};
+			setTimeout(timer, 3000);
+			clearTimeout(timer);
+		}
+	};
+
 	return (
 		<>
-			{isAuthenticated && info && dataIngredient && dataSteps && (
+			{isAuthenticated && (
 				<Layout>
 					<div className="container">
 						<BtnReturn url={"/preparation"} />
-						{info.finish ? (
+						{info && info.finish ? (
 							<>
 								<BtnModify handleClick={() => handleFinish(false)} />
 								<section className={styles.preparationId}>
@@ -125,7 +152,10 @@ const Id = ({ info, dataIngredient, dataSteps, err }) => {
 										width="100%"
 										height="350px"
 									/>
-									<p>{info.description}</p>
+									<h3>Les Conseils</h3>
+									<div className={styles.conseil}>
+										<p className={styles.conseilPara}>{info.description}</p>
+									</div>
 									<div className={styles.containerContent}>
 										<h3>La liste des ingredient</h3>
 										<div className={table.receipe_table}>
@@ -337,6 +367,14 @@ const Id = ({ info, dataIngredient, dataSteps, err }) => {
 										</div>
 									</section>
 								)}
+								<div className={styles.deletePrepa}>
+									{error.status && error.section === "delete" && (
+										<span className={styles.spanError}>{error.message}</span>
+									)}
+									<button onClick={handleDeletePrepa}>
+										Supprimer la preparation
+									</button>
+								</div>
 							</>
 						)}
 					</div>
@@ -387,9 +425,6 @@ export const getServerSideProps = async (ctx) => {
 						info,
 						dataIngredient: null,
 						dataSteps: null,
-						err: {
-							statusCode: 404,
-						},
 					},
 				};
 			}

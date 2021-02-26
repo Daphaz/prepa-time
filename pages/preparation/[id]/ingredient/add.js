@@ -7,6 +7,7 @@ import useAuth from "../../../../auth/context";
 import { useForm } from "react-hook-form";
 import { apiPost } from "../../../../auth/axios";
 import { useRouter } from "next/router";
+import ErrorPage from "next/error";
 
 const AddIngredient = ({ prepaId }) => {
 	const router = useRouter();
@@ -64,7 +65,7 @@ const AddIngredient = ({ prepaId }) => {
 	};
 	return (
 		<>
-			{isAuthenticated && (
+			{isAuthenticated ? (
 				<Layout>
 					<div className="container">
 						<BtnReturn url={`/preparation/${prepaId}`} />
@@ -133,6 +134,8 @@ const AddIngredient = ({ prepaId }) => {
 						</section>
 					</div>
 				</Layout>
+			) : (
+				<ErrorPage statusCode={404} />
 			)}
 		</>
 	);
