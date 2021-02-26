@@ -81,6 +81,7 @@ const ModifyIngredient = ({ prepaId, ingredient }) => {
 												className={styles.inpText}
 												ref={ing.title}
 												onFocus={() => clearError("title")}
+												defaultValue={ingredient.title}
 											/>
 											{errors.title && <span>{errors.title.message}</span>}
 										</div>
@@ -94,6 +95,7 @@ const ModifyIngredient = ({ prepaId, ingredient }) => {
 													ref={ing.quantity}
 													className={styles.inpText}
 													onFocus={() => clearError("quantity")}
+													defaultValue={ingredient.quantity}
 												/>
 												{errors.quantity && (
 													<span>{errors.quantity.message}</span>
@@ -106,7 +108,9 @@ const ModifyIngredient = ({ prepaId, ingredient }) => {
 													id="unit"
 													ref={ing.unit}
 													onFocus={() => clearError("unit")}>
-													<option value="0">choisir</option>
+													<option value={ingredient.unit}>
+														{ingredient.unit}
+													</option>
 													<option value="unité">unité(s)</option>
 													<option value="G">gramme</option>
 													<option value="KG">kilo</option>
