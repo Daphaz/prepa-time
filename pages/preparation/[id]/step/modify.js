@@ -1,6 +1,7 @@
 import React from "react";
 import { Layout } from "../../../../components/Layout";
 import { Card } from "../../../../components/Card";
+import { BtnReturn } from "../../../../components/BtnReturn";
 import styles from "../../../../styles/formPreparation.module.css";
 import useAuth from "../../../../auth/context";
 import api, { apiPut } from "../../../../auth/axios";
@@ -73,6 +74,7 @@ const StepModify = ({ prepaId, step }) => {
 			{isAuthenticated && (
 				<Layout>
 					<div className="container">
+						<BtnReturn url={`/preparation/${prepaId}`} />
 						<section className={styles.addPreparation}>
 							<Card title="Modification de l'étape">
 								<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>

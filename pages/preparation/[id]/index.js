@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Layout } from "../../../components/Layout";
+import { BtnReturn } from "../../../components/BtnReturn";
 import styles from "../../../styles/formPreparation.module.css";
 import table from "../../../styles/components/table.module.css";
 import useAuth from "../../../auth/context";
@@ -77,6 +78,7 @@ const Id = ({ info, dataIngredient, dataSteps }) => {
 			{isAuthenticated && (
 				<Layout>
 					<div className="container">
+						<BtnReturn url={"/preparation"} />
 						{info.finish ? (
 							<section className={styles.preparationId}>
 								<h2>Prepare</h2>
