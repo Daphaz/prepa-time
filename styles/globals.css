@@ -129,3 +129,22 @@ h6 {
 .MuiInput-underline:after {
 	border-bottom: 2px solid var(--primary-color) !important;
 }
+
+/*Btn Return */
+.btn-return {
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	border: 1px solid var(--black-color);
+	margin: 1rem 0;
+}
+.back {
+	color: var(--black-color);
+}

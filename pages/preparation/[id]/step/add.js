@@ -1,19 +1,16 @@
 import React from "react";
 import { Layout } from "../../../../components/Layout";
 import { Card } from "../../../../components/Card";
+import { BtnReturn } from "../../../../components/BtnReturn";
 import styles from "../../../../styles/formPreparation.module.css";
 import useAuth from "../../../../auth/context";
 import { apiPost } from "../../../../auth/axios";
-import { useForm, Controller } from "react-hook-form";
-import TextField from "@material-ui/core/TextField";
-import dateFormat from "dateformat";
+import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 
 const StepAdd = ({ prepaId }) => {
 	const router = useRouter();
 	const { isAuthenticated } = useAuth();
-	const now = new Date();
-	const date = `${dateFormat(now, "isoDate")}T${dateFormat(now, "isoTime")}`;
 	const {
 		register,
 		setError,
@@ -21,7 +18,6 @@ const StepAdd = ({ prepaId }) => {
 		clearErrors,
 		handleSubmit,
 		formState,
-		control,
 	} = useForm({ mode: "onChange" });
 	const { errors, isValid } = formState;
 
@@ -110,6 +106,7 @@ const StepAdd = ({ prepaId }) => {
 			{isAuthenticated && (
 				<Layout>
 					<div className="container">
+						<BtnReturn url={`/preparation/${prepaId}`} />
 						<section className={styles.addPreparation}>
 							<Card title="Ajouter une étape">
 								<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -209,6 +206,10 @@ export const getServerSideProps = async (ctx) => {
 export default StepAdd;
 
 /*
+import TextField from "@material-ui/core/TextField";
+import dateFormat from "dateFormat"
+const now = new Date();
+const date = `${dateFormat(now, "isoDate")}T${dateFormat(now, "isoTime")}`;
 <Controller
   as={
     <TextField id="datetime-local" type="datetime-local" />

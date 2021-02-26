@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import api, { apiPut } from "../../../../auth/axios";
 import { useRouter } from "next/router";
 import { getCookieFromServer } from "../../../../auth/cookies";
+import { BtnReturn } from "../../../../components/BtnReturn";
 
 const ModifyIngredient = ({ prepaId, ingredient }) => {
 	const router = useRouter();
@@ -68,6 +69,7 @@ const ModifyIngredient = ({ prepaId, ingredient }) => {
 			{isAuthenticated && (
 				<Layout>
 					<div className="container">
+						<BtnReturn url={`/preparation/${prepaId}`} />
 						<section className={styles.addPreparation}>
 							<Card title={`Modification de ${ingredient.title}`}>
 								<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
