@@ -9,32 +9,13 @@ import { prepaDate } from "../../utils/dateFormated";
 import { useRouter } from "next/router";
 import EditIcon from "@material-ui/icons/Edit";
 
-const Preparation = () => {
-	const [items, setItems] = useState();
+const Programmer = () => {
+	const [items, setItems] = useState(null);
 	const { isAuthenticated } = useAuth();
 	const router = useRouter();
 
-	async function getitems() {
-		const { data } = await apiGet("/api/preparation");
-		if (data.sucess) {
-			setItems(data.data);
-		}
-	}
-
-	useEffect(() => {
-		getitems();
-	}, []);
-
 	const handleClick = () => {
-		router.push("/preparation/add");
-	};
-
-	const handleItem = (id) => {
-		router.push(`/preparation/${id}`);
-	};
-
-	const handleEdit = (id) => {
-		router.push(`/preparation/${id}/edit`);
+		router.push("/programmer/add");
 	};
 
 	return (
@@ -43,7 +24,7 @@ const Preparation = () => {
 				<Layout>
 					<div className="container">
 						<section className={styles.preparation}>
-							<h2>Préparations</h2>
+							<h2>Programmation</h2>
 							{items ? (
 								<div className={styles.row}>
 									{items.map((item) => {
@@ -87,10 +68,10 @@ const Preparation = () => {
 									})}
 								</div>
 							) : (
-								<h4>Vous n'avez pas encore de préparations</h4>
+								<h4>Vous n'avez pas encore de préparation programmé</h4>
 							)}
 							<button className={styles.btn} onClick={handleClick}>
-								Ajouter une preparation
+								Créer une programmation
 							</button>
 						</section>
 					</div>
@@ -100,4 +81,4 @@ const Preparation = () => {
 	);
 };
 
-export default ProtectedRoute(Preparation);
+export default ProtectedRoute(Programmer);

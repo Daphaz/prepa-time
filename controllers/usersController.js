@@ -121,7 +121,14 @@ const controllerUsers = {
 					const html = await resetPass(findUser.username, token);
 					const sucessMessage =
 						"Votre nouveaux mot de passe vous as été envoyé sur votre email.";
-					await sendEmail(res, findUser.email, subject, html, sucessMessage);
+					await sendEmail(
+						res,
+						findUser.email,
+						subject,
+						html,
+						sucessMessage,
+						false
+					);
 				}
 				res.status(204).send();
 				return;

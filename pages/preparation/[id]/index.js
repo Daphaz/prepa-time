@@ -10,7 +10,7 @@ import api, { apiDelete, apiPut } from "../../../auth/axios";
 import { useRouter } from "next/router";
 import CloseIcon from "@material-ui/icons/Close";
 import EditIcon from "@material-ui/icons/Edit";
-import { stepDate } from "../../../utils/dateFormat";
+import { stepDate } from "../../../utils/dateFormated";
 import ErrorPage from "next/error";
 
 const Id = ({ info, dataIngredient, dataSteps, err }) => {

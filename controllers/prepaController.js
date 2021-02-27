@@ -27,6 +27,24 @@ const controllerPrepa = {
 		}
 	},
 	get: async (req, res) => {
+		const { finish } = req.query;
+		if (finish) {
+			try {
+				const id = await VerifyJWT(req, res);
+				const items = await Prepas.find({ id_user: id, finish });
+				if (items.length > 0) {
+					res.status(200).send({
+						sucess: true,
+						data: items,
+					});
+					return;
+				}
+				res.status(204).send();
+				return;
+			} catch (error) {
+				res.status(204).send();
+			}
+		}
 		try {
 			const id = await VerifyJWT(req, res);
 			const items = await Prepas.find({ id_user: id });

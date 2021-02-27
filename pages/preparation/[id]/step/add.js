@@ -207,18 +207,3 @@ export const getServerSideProps = async (ctx) => {
 };
 
 export default StepAdd;
-
-/*
-import TextField from "@material-ui/core/TextField";
-import dateFormat from "dateFormat"
-const now = new Date();
-const date = `${dateFormat(now, "isoDate")}T${dateFormat(now, "isoTime")}`;
-<Controller
-  as={
-    <TextField id="datetime-local" type="datetime-local" />
-  }
-  defaultValue={date}
-  name="time"
-  control={control}
-/>
-*/
