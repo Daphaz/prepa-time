@@ -1,7 +1,14 @@
 .addPreparation {
 	display: flex;
 	justify-content: center;
+	flex-wrap: wrap;
 	padding-top: 1rem;
+}
+.addPreparation p {
+	margin-top: 2rem;
+	width: 100%;
+	padding: 1rem 0;
+	text-align: center;
 }
 .form {
 	display: flex;
@@ -64,6 +71,7 @@
 	outline: none;
 }
 .formGroup label,
+.formGroupCheckbox label,
 .inpRow label {
 	text-transform: uppercase;
 	font-size: 1rem;
@@ -138,11 +146,27 @@
 }
 
 /* Preparation ID */
+.containerFinish {
+	margin: 1rem 0;
+}
+
+.finishBtn {
+	cursor: pointer;
+	border: none;
+	padding: 0.5rem 0.75rem;
+	border-radius: 5px;
+	font-size: 1.2rem;
+	background-color: var(--orange-color);
+	color: var(--white-color);
+	text-transform: uppercase;
+	outline: none;
+}
 
 .preparationId {
 	display: flex;
 	align-items: center;
 	flex-direction: column;
+	margin-top: 2rem;
 }
 
 .preparationId h2 {
@@ -151,6 +175,36 @@
 	font-size: 1.75rem;
 	color: var(--primary-color);
 }
+
+.preparationId img {
+	object-fit: cover;
+	margin: 1rem 0;
+}
+.conseil {
+	width: 100%;
+	border-left: 2px solid var(--grey-color);
+	margin: 1rem 0;
+}
+.conseilPara {
+	width: 100%;
+	white-space: normal;
+	word-wrap: break-word;
+	padding: 0 0.5rem;
+}
+.containerContent {
+	width: 100%;
+}
+.preparationId h3 {
+	width: 100%;
+	text-align: left;
+	font-size: 1.5rem;
+	color: var(--primary-color);
+}
+
+.stepLabel {
+	margin-bottom: 1rem;
+}
+
 .containerBtn {
 	width: 100%;
 	display: flex;
@@ -204,6 +258,137 @@
 	background-color: rgba(255, 255, 255, 0.2);
 	animation: error 3s ease forwards;
 }
+.sectionStep {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.containerStep {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	width: 100%;
+	padding: 2rem 0;
+}
+.cardStep {
+	position: relative;
+	flex-shrink: 0;
+	width: 100%;
+	max-width: 768px;
+	min-width: 280px;
+	background-color: white;
+	border-radius: 5px;
+	box-shadow: 6px 6px 11px 2px rgba(0, 0, 0, 0.19);
+	-webkit-box-shadow: 6px 6px 11px 2px rgba(0, 0, 0, 0.19);
+	-moz-box-shadow: 6px 6px 11px 2px rgba(0, 0, 0, 0.19);
+	margin-bottom: 1rem;
+	margin-left: 1rem;
+}
+.cardStep h3 {
+	width: 100%;
+	color: var(--primary-color);
+	text-align: center;
+	padding: 1rem 0;
+}
+.cardStep img {
+	width: 100%;
+	height: 200px;
+	object-fit: cover;
+}
+.badgeStep {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: -5px;
+	left: -5px;
+	width: 20px;
+	height: 20px;
+	border-radius: 10px;
+	background-color: var(--green-color);
+	color: var(--white-color);
+	font-size: 0.6rem;
+	font-weight: bold;
+}
+.bodyCard {
+	margin: 0.5rem;
+}
+.descCard {
+	line-height: 125%;
+}
+.footerCard {
+	margin-top: 1rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+.fCreated {
+	font-style: italic;
+}
+.btnLinks {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0.5rem;
+	width: 100%;
+}
+.btnLinks button:first-child {
+	margin-right: 1rem;
+}
+/*Step Add*/
+.inpTime {
+	width: 100%;
+	display: flex;
+}
+.inpTime input {
+	width: 80%;
+}
+.inpTime select {
+	width: 20%;
+}
+
+.deletePrepa {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+.deletePrepa button {
+	margin-top: 1rem;
+	cursor: pointer;
+	outline: none;
+	border: none;
+	padding: 0.5rem 1rem;
+	text-transform: uppercase;
+	background-color: var(--red-color);
+	color: var(--white-color);
+	border-radius: 3px;
+	font-weight: 700;
+}
+
+/*Checkox */
+.checkboxContainer {
+	padding: 0 1rem;
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+.formGroupCheckbox {
+	flex-shrink: 0;
+	width: 100%;
+	min-width: 200px;
+	max-width: 300px;
+	display: flex;
+	align-items: center;
+}
+.formGroupCheckbox input {
+	margin-right: 0.5rem;
+}
 
 @keyframes error {
 	0% {
@@ -211,6 +396,12 @@
 	}
 	100% {
 		width: 100%;
+	}
+}
+
+@media screen and (max-width: 1584px) {
+	.cardStep {
+		margin-left: 0;
 	}
 }
 
@@ -227,5 +418,21 @@
 	.spanError {
 		width: 100%;
 		font-size: 1rem;
+	}
+	.inpTime input {
+		width: 60%;
+	}
+	.inpTime select {
+		width: 40%;
+	}
+}
+
+@media screen and (max-width: 425px) {
+	.footerCard {
+		flex-direction: column;
+	}
+	.finishBtn {
+		font-size: 1rem;
+		font-weight: bold;
 	}
 }

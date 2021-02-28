@@ -22,14 +22,18 @@ export default async (req, res) => {
 			}
 			break;
 		case "PUT":
-			res.status(400).json({
-				success: false,
-			});
+			try {
+				controllerPrepa.modify(req, res);
+			} catch (error) {
+				res.status(error.code).send(error.message);
+			}
 			break;
 		case "DELETE":
-			res.status(400).json({
-				success: false,
-			});
+			try {
+				controllerPrepa.delete(req, res);
+			} catch (error) {
+				res.status(error.code).send(error.message);
+			}
 			break;
 		default:
 			res.status(400).json({

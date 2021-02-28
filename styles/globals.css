@@ -72,6 +72,7 @@ h6 {
 /*layout*/
 .container {
 	padding: 0 1rem;
+	padding-bottom: 1rem;
 }
 .row {
 	display: flex;
@@ -82,9 +83,6 @@ h6 {
 }
 
 /*mobile menu*/
-.bodyOpen {
-	overflow: hidden;
-}
 .isopen {
 	transform: translateY(0) !important;
 }
@@ -128,4 +126,35 @@ h6 {
 }
 .MuiInput-underline:after {
 	border-bottom: 2px solid var(--primary-color) !important;
+}
+
+/*Btn Return / Edit */
+.btn-return,
+.btn-edit {
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	top: 4rem;
+	left: 1rem;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	border: 1px solid var(--black-color);
+	margin: 1rem 0;
+	background-color: var(--white-color);
+	z-index: 1;
+}
+.back,
+.edit {
+	color: var(--black-color);
+}
+
+.btn-edit {
+	left: initial;
+	right: 1rem;
+}
+.edit {
+	color: var(--black-color);
 }

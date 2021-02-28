@@ -22,6 +22,7 @@ export const Steps =
 				type: Date,
 				default: Date.now(),
 			},
-			time: String,
+			time: Number,
+			unit_time: String,
 		})
 	);

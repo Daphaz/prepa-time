@@ -1,16 +1,24 @@
 import React, { useState } from "react";
 import { Layout } from "../../../components/Layout";
-import styles from "../../../styles/addPreparation.module.css";
+import { BtnReturn } from "../../../components/BtnReturn";
+import { BtnModify } from "../../../components/BtnModify";
+import styles from "../../../styles/formPreparation.module.css";
 import table from "../../../styles/components/table.module.css";
 import useAuth from "../../../auth/context";
 import { getCookieFromServer } from "../../../auth/cookies";
-import api, { apiDelete } from "../../../auth/axios";
+import api, { apiDelete, apiPut } from "../../../auth/axios";
 import { useRouter } from "next/router";
 import CloseIcon from "@material-ui/icons/Close";
 import EditIcon from "@material-ui/icons/Edit";
+import { stepDate } from "../../../utils/dateFormated";
+import ErrorPage from "next/error";
 
-const Id = ({ info, dataIngredient, dataSteps }) => {
-	const [error, setError] = useState({ status: false, message: "" });
+const Id = ({ info, dataIngredient, dataSteps, err }) => {
+	const [error, setError] = useState({
+		status: false,
+		message: "",
+		section: "",
+	});
 	const router = useRouter();
 	const { isAuthenticated } = useAuth();
 
@@ -22,7 +30,7 @@ const Id = ({ info, dataIngredient, dataSteps }) => {
 		router.push(`/preparation/${info._id}/step/add`);
 	};
 
-	const handleDelete = async (ingredient_id) => {
+	const handleDeleteIng = async (ingredient_id) => {
 		const { data } = await apiDelete("/api/ingredient", { ingredient_id });
 		if (data.sucess) {
 			router.push(`/preparation/${info._id}`);
@@ -30,34 +38,208 @@ const Id = ({ info, dataIngredient, dataSteps }) => {
 			setError({
 				status: true,
 				message: "Une erreur est survenue, veuillez réessayer plus tard",
+				section: "ing",
 			});
 			const timer = () => {
 				setError({
 					status: false,
 					message: "",
+					section: "",
 				});
 			};
 			setTimeout(timer, 3000);
 			clearTimeout(timer);
 		}
 	};
-	const handleModify = (ingredient_id) => {
+	const handleModifyIng = (ingredient_id) => {
 		router.push(
 			`/preparation/${info._id}/ingredient/modify?ing=${ingredient_id}`
 		);
 	};
+
+	const handleDeleteStep = async (step_id) => {
+		const { data } = await apiDelete("/api/step", {
+			step_id,
+			prepa_id: info._id,
+		});
+		if (data.sucess) {
+			router.push(`/preparation/${info._id}`);
+		} else {
+			setError({
+				status: true,
+				message: "Une erreur est survenue, veuillez réessayer plus tard",
+				section: "step",
+			});
+			const timer = () => {
+				setError({
+					status: false,
+					message: "",
+					section: "",
+				});
+			};
+			setTimeout(timer, 3000);
+			clearTimeout(timer);
+		}
+	};
+
+	const handleModifyStep = (step_id) => {
+		router.push(`/preparation/${info._id}/step/modify?step=${step_id}`);
+	};
+
+	const handleFinish = async (value) => {
+		const { data } = await apiPut("/api/preparation", {
+			prepaId: info._id,
+			finish: value,
+		});
+		if (data.sucess) {
+			router.push(`/preparation/${info._id}`);
+		} else {
+			setError({
+				status: true,
+				message: "Une erreur est survenue, veuillez réessayer plus tard",
+				section: "finish",
+			});
+			const timer = () => {
+				setError({
+					status: false,
+					message: "",
+					section: "",
+				});
+			};
+			setTimeout(timer, 3000);
+			clearTimeout(timer);
+		}
+	};
+
+	const handleDeletePrepa = async () => {
+		const { data } = await apiDelete("/api/preparation", {
+			prepa_id: info._id,
+		});
+		if (data.sucess) {
+			router.push("/preparation");
+		} else {
+			setError({
+				status: true,
+				message: "Une erreur est survenue, veuillez réessayer plus tard",
+				section: "delete",
+			});
+			const timer = () => {
+				setError({
+					status: false,
+					message: "",
+					section: "",
+				});
+			};
+			setTimeout(timer, 3000);
+			clearTimeout(timer);
+		}
+	};
+
 	return (
 		<>
 			{isAuthenticated && (
 				<Layout>
 					<div className="container">
-						{info.finish ? (
-							<section className={styles.preparationId}>
-								<h2>Prepare</h2>
-							</section>
+						<BtnReturn url={"/preparation"} />
+						{info && info.finish ? (
+							<>
+								<BtnModify handleClick={() => handleFinish(false)} />
+								<section className={styles.preparationId}>
+									<h2>{info.title}</h2>
+									<img
+										src={info.image_url}
+										alt="banner image"
+										width="100%"
+										height="350px"
+									/>
+									<h3>Les Conseils</h3>
+									<div className={styles.conseil}>
+										<p className={styles.conseilPara}>{info.description}</p>
+									</div>
+									<div className={styles.containerContent}>
+										<h3>La liste des ingredient</h3>
+										<div className={table.receipe_table}>
+											<table>
+												<thead>
+													<tr>
+														<th>Ingredients</th>
+														<th>Quantité</th>
+													</tr>
+												</thead>
+												<tbody>
+													{dataIngredient.map((ing) => {
+														const unit = ing.unit !== "unité" ? ing.unit : "";
+														return (
+															<tr key={ing._id}>
+																<td> {ing.title} </td>
+																<td>{`${ing.quantity} ${unit}`}</td>
+															</tr>
+														);
+													})}
+												</tbody>
+											</table>
+										</div>
+										<h3 className={styles.stepLabel}>Les étapes</h3>
+										<div className={styles.containerStep}>
+											{dataSteps.map((step, k) => {
+												const parseCreatedAt = Date.parse(step.createdAt);
+												const parseUpdatedAt = Date.parse(step.updatedAt);
+												const date =
+													parseUpdatedAt > parseCreatedAt
+														? step.updatedAt
+														: step.createdAt;
+												return (
+													<div key={step._id} className={styles.cardStep}>
+														<div className={styles.badgeStep}>{k + 1}</div>
+														<h3>{step.title}</h3>
+														<div>
+															<img
+																src={step.image_url}
+																alt={`image etape ${k + 1}`}
+															/>
+														</div>
+														<div className={styles.bodyCard}>
+															<div className={styles.descCard}>
+																<p>{step.description}</p>
+															</div>
+															<div className={styles.footerCard}>
+																<span>
+																	Durée:
+																	{` ${step.time} ${
+																		step.unit_time ? step.unit_time : ""
+																	}`}
+																</span>
+																<span className={styles.fCreated}>
+																	{stepDate(date)}
+																</span>
+															</div>
+														</div>
+													</div>
+												);
+											})}
+										</div>
+									</div>
+								</section>
+							</>
 						) : (
 							<>
 								<section className={styles.preparationId}>
+									{dataIngredient && dataSteps && (
+										<>
+											{error.status && error.section === "finish" && (
+												<span className={styles.spanError}>
+													{error.message}
+												</span>
+											)}
+											<div className={styles.containerFinish}>
+												<button
+													className={styles.finishBtn}
+													onClick={() => handleFinish(true)}>
+													Terminer la preparation
+												</button>
+											</div>
+										</>
+									)}
 									<h2>{info.title}</h2>
 									<div className={styles.imgContainer}>
 										<img src={info.image_url} width="100%" />
@@ -79,7 +261,7 @@ const Id = ({ info, dataIngredient, dataSteps }) => {
 								{dataIngredient && dataIngredient.length > 0 ? (
 									<section className={styles.sectionIng}>
 										<h2>Ingredients disponible</h2>
-										{error.status && (
+										{error.status && error.section === "ing" && (
 											<span className={styles.spanError}>{error.message}</span>
 										)}
 										<div className={table.receipe_table}>
@@ -102,14 +284,14 @@ const Id = ({ info, dataIngredient, dataSteps }) => {
 																<td>
 																	<button
 																		className={table.btn_delete}
-																		onClick={() => handleDelete(ing._id)}>
+																		onClick={() => handleDeleteIng(ing._id)}>
 																		<CloseIcon fontSize="small" />
 																	</button>
 																</td>
 																<td>
 																	<button
 																		className={table.btn_modify}
-																		onClick={() => handleModify(ing._id)}>
+																		onClick={() => handleModifyIng(ing._id)}>
 																		<EditIcon fontSize="small" />
 																	</button>
 																</td>
@@ -126,41 +308,79 @@ const Id = ({ info, dataIngredient, dataSteps }) => {
 									</section>
 								)}
 								{dataSteps && dataSteps.length > 0 && (
-									<section>
+									<section className={styles.sectionStep}>
 										<h2>Etapes ajoutée</h2>
-										<div>
-											{dataSteps.map((step, k) => (
-												<div key={step._id}>
-													<h3>{step.title}</h3>
-													<div>
-														<img
-															src={step.image_url}
-															alt={`image etape ${k + 1}`}
-														/>
-													</div>
-													<p>{step.description}</p>
-													<div>
+										<div className={styles.containerStep}>
+											{dataSteps.map((step, k) => {
+												const parseCreatedAt = Date.parse(step.createdAt);
+												const parseUpdatedAt = Date.parse(step.updatedAt);
+												const date =
+													parseUpdatedAt > parseCreatedAt
+														? step.updatedAt
+														: step.createdAt;
+												return (
+													<div key={step._id} className={styles.cardStep}>
+														<div className={styles.badgeStep}>{k + 1}</div>
+														<h3>{step.title}</h3>
 														<div>
-															<span>Etape terminer le :{step.time}</span>
+															<img
+																src={step.image_url}
+																alt={`image etape ${k + 1}`}
+															/>
 														</div>
-														<div>
-															<span>{`Etape ${k + 1}`}</span>
+														<div className={styles.bodyCard}>
+															<div className={styles.descCard}>
+																<p>{step.description}</p>
+															</div>
+															<div className={styles.footerCard}>
+																<span>
+																	Durée:
+																	{` ${step.time} ${
+																		step.unit_time ? step.unit_time : ""
+																	}`}
+																</span>
+																<span className={styles.fCreated}>
+																	{stepDate(date)}
+																</span>
+															</div>
 														</div>
+														<div className={styles.btnLinks}>
+															<button
+																className={table.btn_delete}
+																onClick={() => handleDeleteStep(step._id)}>
+																<CloseIcon fontSize="small" />
+															</button>
+															<button
+																className={table.btn_modify}
+																onClick={() => handleModifyStep(step._id)}>
+																<EditIcon fontSize="small" />
+															</button>
+														</div>
+														{error.status && error.section === "step" && (
+															<span className={styles.spanError}>
+																{error.message}
+															</span>
+														)}
 													</div>
-													<div>
-														<button>Modifier</button>
-														<button>Supprimer</button>
-													</div>
-												</div>
-											))}
+												);
+											})}
 										</div>
 									</section>
 								)}
+								<div className={styles.deletePrepa}>
+									{error.status && error.section === "delete" && (
+										<span className={styles.spanError}>{error.message}</span>
+									)}
+									<button onClick={handleDeletePrepa}>
+										Supprimer la preparation
+									</button>
+								</div>
 							</>
 						)}
 					</div>
 				</Layout>
 			)}
+			{err && <ErrorPage statusCode={err.statusCode} />}
 		</>
 	);
 };
@@ -209,9 +429,20 @@ export const getServerSideProps = async (ctx) => {
 				};
 			}
 		}
+		return {
+			props: {
+				err: {
+					statusCode: 404,
+				},
+			},
+		};
 	} else {
 		return {
-			props: {},
+			props: {
+				err: {
+					statusCode: 404,
+				},
+			},
 		};
 	}
 };

@@ -15,10 +15,43 @@
 	flex-wrap: wrap;
 }
 .item {
-	cursor: pointer;
+	position: relative;
 	margin: 0.5rem;
 }
+.finishLabel,
+.finishLabelValid {
+	position: absolute;
+	top: -10px;
+	left: -5px;
+	background-color: var(--orange-color);
+	padding: 0 0.5rem;
+	border-radius: 3px;
+	box-shadow: 3px 3px 6px 2px rgba(0, 0, 0, 0.19);
+	-webkit-box-shadow: 3px 3px 6px 2px rgba(0, 0, 0, 0.19);
+	-moz-box-shadow: 3px 3px 6px 2px rgba(0, 0, 0, 0.19);
+}
+.finishLabelValid {
+	background-color: var(--green-color);
+}
+.editLabel {
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: -15px;
+	right: -5px;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	background-color: var(--primary-color);
+	color: var(--white-color);
+	box-shadow: 3px 3px 6px 2px rgba(0, 0, 0, 0.19);
+	-webkit-box-shadow: 3px 3px 6px 2px rgba(0, 0, 0, 0.19);
+	-moz-box-shadow: 3px 3px 6px 2px rgba(0, 0, 0, 0.19);
+}
 .imageCard {
+	cursor: pointer;
 	overflow: hidden;
 	width: 100%;
 	max-width: 400px;
@@ -63,7 +96,7 @@
 	justify-content: space-between;
 	align-items: flex-end;
 }
-.type {
+.typeItem {
 	text-transform: uppercase;
 	font-weight: bold;
 	color: var(--white-color);
@@ -71,6 +104,22 @@
 	padding: 0 0.5rem;
 	border-radius: 3px;
 }
+
+/*Prog Index*/
+.cardBody {
+	width: 100%;
+	padding: 0.5rem 0;
+}
+.schedule {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+.schedule span {
+	padding: 0 0.5rem;
+}
+
 @media screen and (max-width: 768px) {
 	.btn {
 		width: 100%;

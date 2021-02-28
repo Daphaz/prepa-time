@@ -1,7 +1,7 @@
 import React from "react";
 import { Layout } from "../../components/Layout";
 import { Card } from "../../components/Card";
-import styles from "../../styles/addPreparation.module.css";
+import styles from "../../styles/formPreparation.module.css";
 import { ProtectedRoute } from "../../auth/protectedRoute";
 import { useForm } from "react-hook-form";
 import useAuth from "../../auth/context";
@@ -103,7 +103,7 @@ const Add = () => {
 										{errors.title && <span>{errors.title.message}</span>}
 									</div>
 									<div className={styles.formGroup}>
-										<label htmlFor="description">Description</label>
+										<label htmlFor="description">Conseil</label>
 										<div className={styles.areaContainer}>
 											<textarea
 												name="description"

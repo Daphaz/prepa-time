@@ -1,5 +1,5 @@
 import dbConnect from "../../../utils/dbConnect";
-import controllerStep from "../../../controllers/stepController";
+import controllerProgs from "../../../controllers/progsController";
 
 dbConnect();
 
@@ -9,31 +9,27 @@ export default async (req, res) => {
 	switch (method) {
 		case "GET":
 			try {
-				controllerStep.get(req, res);
+				controllerProgs.get(req, res);
 			} catch (error) {
 				res.status(error.code).send(error.message);
 			}
 			break;
 		case "POST":
 			try {
-				controllerStep.add(req, res);
+				controllerProgs.add(req, res);
 			} catch (error) {
 				res.status(error.code).send(error.message);
 			}
 			break;
 		case "PUT":
-			try {
-				controllerStep.modify(req, res);
-			} catch (error) {
-				res.status(error.code).send(error.message);
-			}
+			res.status(400).json({
+				success: false,
+			});
 			break;
 		case "DELETE":
-			try {
-				controllerStep.delete(req, res);
-			} catch (error) {
-				res.status(error.code).send(error.message);
-			}
+			res.status(400).json({
+				success: false,
+			});
 			break;
 		default:
 			res.status(400).json({

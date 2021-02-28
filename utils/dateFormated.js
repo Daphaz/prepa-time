@@ -50,3 +50,19 @@ export const prepaDate = (now) => {
 	dateFormat.masks.prepaAdd = "dd mmmm yyyy";
 	return dateFormat(now, "prepaAdd");
 };
+
+export const stepDate = (now) => {
+	dateFormat.masks.stepAdd = 'dd mmmm yyyy "à" HH:MM';
+	return dateFormat(now, "stepAdd");
+};
+
+export const fieldDate = (now) => {
+	const date = `${dateFormat(now, "isoDate")}T${dateFormat(now, "isoTime")}`;
+	return date;
+};
+
+export const startDateTime = (time) => {
+	const date = new Date(time);
+	const parsed = Date.parse(date);
+	return parsed;
+};

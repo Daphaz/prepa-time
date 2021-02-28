@@ -5,35 +5,30 @@ dbConnect();
 
 export default async (req, res) => {
 	const { method } = req;
+	//const { id } = req.query;
 
 	switch (method) {
 		case "GET":
 			try {
-				controllerStep.get(req, res);
+				controllerStep.getOne(req, res);
 			} catch (error) {
 				res.status(error.code).send(error.message);
 			}
 			break;
 		case "POST":
-			try {
-				controllerStep.add(req, res);
-			} catch (error) {
-				res.status(error.code).send(error.message);
-			}
+			res.status(400).json({
+				success: false,
+			});
 			break;
 		case "PUT":
-			try {
-				controllerStep.modify(req, res);
-			} catch (error) {
-				res.status(error.code).send(error.message);
-			}
+			res.status(400).json({
+				success: false,
+			});
 			break;
 		case "DELETE":
-			try {
-				controllerStep.delete(req, res);
-			} catch (error) {
-				res.status(error.code).send(error.message);
-			}
+			res.status(400).json({
+				success: false,
+			});
 			break;
 		default:
 			res.status(400).json({

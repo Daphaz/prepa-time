@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
 	},
 });
 
-const sendEmail = async (res, to, subject, html, sucessMessage) => {
+const sendEmail = async (res, to, subject, html, sucessMessage, notRes) => {
 	const mailOptions = {
 		from: process.env.EMAIL_USER,
 		to,
@@ -22,14 +22,18 @@ const sendEmail = async (res, to, subject, html, sucessMessage) => {
 	try {
 		const response = await transporter.sendMail(mailOptions);
 		if (response) {
-			res.status(200).send({
-				sucess: true,
-				data: sucessMessage,
-			});
-			return;
+			if (notRes) {
+				return;
+			} else {
+				res.status(200).send({
+					sucess: true,
+					data: sucessMessage,
+				});
+				return;
+			}
 		}
 	} catch (error) {
-		res.status(error.code).send(error.message);
+		console.log("ConfigEmail: ", error);
 	}
 };
 

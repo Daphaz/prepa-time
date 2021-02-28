@@ -1,11 +1,13 @@
 import React from "react";
 import { Layout } from "../../../../components/Layout";
 import { Card } from "../../../../components/Card";
-import styles from "../../../../styles/addPreparation.module.css";
+import { BtnReturn } from "../../../../components/BtnReturn";
+import styles from "../../../../styles/formPreparation.module.css";
 import useAuth from "../../../../auth/context";
 import { useForm } from "react-hook-form";
 import { apiPost } from "../../../../auth/axios";
 import { useRouter } from "next/router";
+import ErrorPage from "next/error";
 
 const AddIngredient = ({ prepaId }) => {
 	const router = useRouter();
@@ -63,9 +65,10 @@ const AddIngredient = ({ prepaId }) => {
 	};
 	return (
 		<>
-			{isAuthenticated && (
+			{isAuthenticated ? (
 				<Layout>
 					<div className="container">
+						<BtnReturn url={`/preparation/${prepaId}`} />
 						<section className={styles.addPreparation}>
 							<Card title="Ajouter un ingredient">
 								<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -131,6 +134,8 @@ const AddIngredient = ({ prepaId }) => {
 						</section>
 					</div>
 				</Layout>
+			) : (
+				<ErrorPage statusCode={404} />
 			)}
 		</>
 	);

@@ -1,12 +1,13 @@
 import React from "react";
 import { Layout } from "../../../../components/Layout";
 import { Card } from "../../../../components/Card";
-import styles from "../../../../styles/addPreparation.module.css";
+import styles from "../../../../styles/formPreparation.module.css";
 import useAuth from "../../../../auth/context";
 import { useForm } from "react-hook-form";
 import api, { apiPut } from "../../../../auth/axios";
 import { useRouter } from "next/router";
 import { getCookieFromServer } from "../../../../auth/cookies";
+import { BtnReturn } from "../../../../components/BtnReturn";
 
 const ModifyIngredient = ({ prepaId, ingredient }) => {
 	const router = useRouter();
@@ -68,6 +69,7 @@ const ModifyIngredient = ({ prepaId, ingredient }) => {
 			{isAuthenticated && (
 				<Layout>
 					<div className="container">
+						<BtnReturn url={`/preparation/${prepaId}`} />
 						<section className={styles.addPreparation}>
 							<Card title={`Modification de ${ingredient.title}`}>
 								<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -81,6 +83,7 @@ const ModifyIngredient = ({ prepaId, ingredient }) => {
 												className={styles.inpText}
 												ref={ing.title}
 												onFocus={() => clearError("title")}
+												defaultValue={ingredient.title}
 											/>
 											{errors.title && <span>{errors.title.message}</span>}
 										</div>
@@ -94,6 +97,7 @@ const ModifyIngredient = ({ prepaId, ingredient }) => {
 													ref={ing.quantity}
 													className={styles.inpText}
 													onFocus={() => clearError("quantity")}
+													defaultValue={ingredient.quantity}
 												/>
 												{errors.quantity && (
 													<span>{errors.quantity.message}</span>
@@ -106,7 +110,9 @@ const ModifyIngredient = ({ prepaId, ingredient }) => {
 													id="unit"
 													ref={ing.unit}
 													onFocus={() => clearError("unit")}>
-													<option value="0">choisir</option>
+													<option value={ingredient.unit}>
+														{ingredient.unit}
+													</option>
 													<option value="unité">unité(s)</option>
 													<option value="G">gramme</option>
 													<option value="KG">kilo</option>

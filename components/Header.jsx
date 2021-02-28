@@ -13,7 +13,6 @@ export const Header = () => {
 	const handleMenuOpen = () => {
 		menuOpen.current.classList.toggle("isopen");
 		burger.current.classList.toggle("menuOpen");
-		document.body.classList.toggle("bodyOpen");
 	};
 	const handleLogo = () => {
 		router.push("/");
@@ -52,7 +51,7 @@ export const Header = () => {
 									</Link>
 								</li>
 								<li className={styles.navlinks}>
-									<Link href="programmer">
+									<Link href="/programmer">
 										<a>Programmer</a>
 									</Link>
 								</li>
@@ -134,7 +133,7 @@ export const Header = () => {
 									</Link>
 								</li>
 								<li>
-									<Link href="programmer">
+									<Link href="/programmer">
 										<a className={styles.navlinks}>Programmer</a>
 									</Link>
 								</li>
