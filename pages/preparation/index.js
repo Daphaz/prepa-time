@@ -5,7 +5,7 @@ import { ProtectedRoute } from "../../auth/protectedRoute";
 import useAuth from "../../auth/context";
 import { Card } from "../../components/Card";
 import { apiGet } from "../../auth/axios";
-import { prepaDate } from "../../utils/dateFormat";
+import { prepaDate } from "../../utils/dateFormated";
 import { useRouter } from "next/router";
 import EditIcon from "@material-ui/icons/Edit";
 

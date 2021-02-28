@@ -51,7 +51,7 @@ export const Header = () => {
 									</Link>
 								</li>
 								<li className={styles.navlinks}>
-									<Link href="programmer">
+									<Link href="/programmer">
 										<a>Programmer</a>
 									</Link>
 								</li>
@@ -133,7 +133,7 @@ export const Header = () => {
 									</Link>
 								</li>
 								<li>
-									<Link href="programmer">
+									<Link href="/programmer">
 										<a className={styles.navlinks}>Programmer</a>
 									</Link>
 								</li>

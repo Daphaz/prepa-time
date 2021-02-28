@@ -35,7 +35,6 @@ export const loginLogic = () => {
 	const onSubmit = async (d) => {
 		try {
 			const { data } = await apiPost("/api/login", d);
-			console.log(data);
 			if (data.success) {
 				login(data.data);
 			} else {

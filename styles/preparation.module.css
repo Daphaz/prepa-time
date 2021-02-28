@@ -104,6 +104,22 @@
 	padding: 0 0.5rem;
 	border-radius: 3px;
 }
+
+/*Prog Index*/
+.cardBody {
+	width: 100%;
+	padding: 0.5rem 0;
+}
+.schedule {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+.schedule span {
+	padding: 0 0.5rem;
+}
+
 @media screen and (max-width: 768px) {
 	.btn {
 		width: 100%;

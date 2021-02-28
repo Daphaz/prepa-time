@@ -1,7 +1,14 @@
 .addPreparation {
 	display: flex;
 	justify-content: center;
+	flex-wrap: wrap;
 	padding-top: 1rem;
+}
+.addPreparation p {
+	margin-top: 2rem;
+	width: 100%;
+	padding: 1rem 0;
+	text-align: center;
 }
 .form {
 	display: flex;
@@ -64,6 +71,7 @@
 	outline: none;
 }
 .formGroup label,
+.formGroupCheckbox label,
 .inpRow label {
 	text-transform: uppercase;
 	font-size: 1rem;
@@ -360,6 +368,26 @@
 	color: var(--white-color);
 	border-radius: 3px;
 	font-weight: 700;
+}
+
+/*Checkox */
+.checkboxContainer {
+	padding: 0 1rem;
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+.formGroupCheckbox {
+	flex-shrink: 0;
+	width: 100%;
+	min-width: 200px;
+	max-width: 300px;
+	display: flex;
+	align-items: center;
+}
+.formGroupCheckbox input {
+	margin-right: 0.5rem;
 }
 
 @keyframes error {
