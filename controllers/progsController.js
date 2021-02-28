@@ -8,9 +8,13 @@ const controllerProgs = {
 		try {
 			const id = await VerifyJWT(req, res);
 			if (prepaId) {
-				const { steps_id, title } = await Prepas.findOne({ _id: prepaId });
+				const { steps_id, title, image_url } = await Prepas.findOne({
+					_id: prepaId,
+				});
 				if (steps_id) {
 					const times = [];
+					const stepsId = [];
+					const stepInformation = [];
 					for (let i = 0; i < steps_id.length; i++) {
 						const stepName = `step${i}`;
 						const stepId = steps_id[i];
@@ -21,22 +25,32 @@ const controllerProgs = {
 								case "minute":
 									const totalm = timeToMilli * 60;
 									times.push(totalm);
+									stepsId.push(stepId);
+									stepInformation.push({ temp: time, unit: unit_time });
 									break;
 								case "heure":
 									const totalH = timeToMilli * 60 * 60;
 									times.push(totalH);
+									stepsId.push(stepId);
+									stepInformation.push({ temp: time, unit: unit_time });
 									break;
 								case "jour":
 									const totalJ = timeToMilli * 60 * 60 * 24;
 									times.push(totalJ);
+									stepsId.push(stepId);
+									stepInformation.push({ temp: time, unit: unit_time });
 									break;
 								case "semaine":
 									const totalS = timeToMilli * 60 * 60 * 24 * 7;
 									times.push(totalS);
+									stepsId.push(stepId);
+									stepInformation.push({ temp: time, unit: unit_time });
 									break;
 								case "mois":
 									const totalM = timeToMilli * 60 * 60 * 24 * 7 * 4;
 									times.push(totalM);
+									stepsId.push(stepId);
+									stepInformation.push({ temp: time, unit: unit_time });
 									break;
 								default:
 									res.status(400).send();
@@ -44,11 +58,6 @@ const controllerProgs = {
 							}
 						}
 					}
-					times.sort((a, b) => {
-						if (a > b) return 1;
-						if (a < b) return -1;
-						return 0;
-					});
 
 					if (times.length > 0) {
 						const newTimes = [];
@@ -64,13 +73,18 @@ const controllerProgs = {
 								name: `step${j + 1}`,
 								time,
 								status: false,
+								stepId: stepsId[j],
+								stepInfo: stepInformation[j],
 							};
 							query.push(obj);
 						}
+
 						const resp = await Progs.create({
 							prepa: prepaId,
+							prepaTitle: title,
+							image_url,
 							startDate: timeStart,
-							id_user: id,
+							idUser: id,
 							scheduleDate: query,
 						});
 						if (resp) {
@@ -106,6 +120,24 @@ const controllerProgs = {
 				return;
 			}
 			res.status(400).send();
+			return;
+		} catch (error) {
+			console.log("PROGS: ", error);
+			res.status(400).send();
+		}
+	},
+	get: async (req, res) => {
+		try {
+			const id = await VerifyJWT(req, res);
+			const items = await Progs.find({ idUser: id });
+			if (items.length > 0) {
+				res.status(200).send({
+					sucess: true,
+					data: items,
+				});
+				return;
+			}
+			res.status(204).send();
 			return;
 		} catch (error) {
 			console.log("PROGS: ", error);

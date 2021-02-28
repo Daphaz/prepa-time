@@ -6,8 +6,10 @@ export const Progs =
 		"Progs",
 		new mongoose.Schema({
 			prepa: String,
+			prepaTitle: String,
+			image_url: String,
 			startDate: Number,
-			id_user: String,
+			idUser: String,
 			scheduleDate: Array,
 			createdAt: {
 				type: Date,

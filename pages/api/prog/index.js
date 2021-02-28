@@ -8,9 +8,11 @@ export default async (req, res) => {
 
 	switch (method) {
 		case "GET":
-			res.status(400).json({
-				success: false,
-			});
+			try {
+				controllerProgs.get(req, res);
+			} catch (error) {
+				res.status(error.code).send(error.message);
+			}
 			break;
 		case "POST":
 			try {

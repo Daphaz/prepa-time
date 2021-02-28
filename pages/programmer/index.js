@@ -1,18 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Layout } from "../../components/Layout";
 import styles from "../../styles/preparation.module.css";
-import { ProtectedRoute } from "../../auth/protectedRoute";
 import useAuth from "../../auth/context";
 import { Card } from "../../components/Card";
 import { apiGet } from "../../auth/axios";
 import { prepaDate } from "../../utils/dateFormated";
 import { useRouter } from "next/router";
-import EditIcon from "@material-ui/icons/Edit";
+import AlarmOnIcon from "@material-ui/icons/AlarmOn";
+import ScheduleIcon from "@material-ui/icons/Schedule";
+import useSWR from "swr";
+import { ProtectedRoute } from "../../auth/protectedRoute";
+
+const fetcher = (url) => apiGet(url).then((res) => res.data.data);
 
 const Programmer = () => {
-	const [items, setItems] = useState(null);
 	const { isAuthenticated } = useAuth();
 	const router = useRouter();
+
+	const { data: progItems } = useSWR("/api/prog", fetcher);
 
 	const handleClick = () => {
 		router.push("/programmer/add");
@@ -25,39 +30,41 @@ const Programmer = () => {
 					<div className="container">
 						<section className={styles.preparation}>
 							<h2>Programmation</h2>
-							{items ? (
+							{progItems ? (
 								<div className={styles.row}>
-									{items.map((item) => {
-										const parseCreatedAt = Date.parse(item.createdAt);
-										const parseUpdatedAt = Date.parse(item.updatedAt);
-										const date =
-											parseUpdatedAt > parseCreatedAt
-												? item.updatedAt
-												: item.createdAt;
+									{progItems.map((item) => {
+										const date = Date.parse(item.createdAt);
 										return (
 											<div className={styles.item} key={item._id}>
-												{item.finish ? (
-													<span className={styles.finishLabelValid}>
-														Terminer
-													</span>
-												) : (
-													<span className={styles.finishLabel}>en cour..</span>
-												)}
-												<span
-													className={styles.editLabel}
-													onClick={() => handleEdit(item._id)}>
-													<EditIcon fontSize="small" />
-												</span>
-												<Card title={item.title}>
-													{item.image_url && (
-														<div
-															className={styles.imageCard}
-															onClick={() => handleItem(item._id)}>
-															<img src={item.image_url} width="100%" />
-														</div>
+												<Card title={item.prepaTitle}>
+													<div className={styles.imageCard}>
+														<img src={item.image_url} width="100%" />
+													</div>
+													{item.scheduleDate.every(
+														(val) => val.status === true
+													) ? (
+														<span className={styles.finishLabelValid}>
+															Terminer
+														</span>
+													) : (
+														<span className={styles.finishLabel}>
+															en cour..
+														</span>
 													)}
+													<div className={styles.cardBody}>
+														{item.scheduleDate.map((val) => (
+															<div className={styles.schedule} key={val.id}>
+																<strong>{val.stepInfo.temp}</strong>
+																<span>{val.stepInfo.unit}</span>
+																{val.status ? (
+																	<AlarmOnIcon color="primary" />
+																) : (
+																	<ScheduleIcon color="action" />
+																)}
+															</div>
+														))}
+													</div>
 													<div className={styles.footerCard}>
-														<span className={styles.typeItem}>{item.type}</span>
 														<span className={styles.createdAt}>
 															{prepaDate(date)}
 														</span>

@@ -27,20 +27,36 @@ const IdPrepa = ({ prepaId, steps, err }) => {
 	});
 
 	const onSubmit = async (d) => {
+		const now = Date.now();
 		const timeStart = startDateTime(d.timeStart);
-		const query = {
-			...d,
-			timeStart,
-			prepaId,
-		};
-		try {
-			const { data } = await apiPost("/api/prog", query);
-			if (data.sucess) {
-				router.push("/programmer");
-			} else {
+		if (timeStart > now) {
+			const query = {
+				...d,
+				timeStart,
+				prepaId,
+			};
+			try {
+				const { data } = await apiPost("/api/prog", query);
+				if (data.sucess) {
+					router.push("/programmer");
+				} else {
+					setError({
+						status: true,
+						message: "Veuillez choisir au moins une étape a programmer..",
+					});
+					const timer = () => {
+						setError({
+							status: false,
+							message: "",
+						});
+					};
+					setTimeout(timer, 3000);
+					clearTimeout(timer);
+				}
+			} catch (error) {
 				setError({
 					status: true,
-					message: "Veuillez choisir au moins une étape a programmer..",
+					message: "Une erreur est survenue, veuillez réessayer plus tard",
 				});
 				const timer = () => {
 					setError({
@@ -51,10 +67,10 @@ const IdPrepa = ({ prepaId, steps, err }) => {
 				setTimeout(timer, 3000);
 				clearTimeout(timer);
 			}
-		} catch (error) {
+		} else {
 			setError({
 				status: true,
-				message: "Une erreur est survenue, veuillez réessayer plus tard",
+				message: "Veuillez choisir une date suppérieur à l'heure actuelle",
 			});
 			const timer = () => {
 				setError({
@@ -78,8 +94,7 @@ const IdPrepa = ({ prepaId, steps, err }) => {
 								choissiez une date de début et quelle étape souhaitez vous être
 								alerter par email
 								<br />
-								Vous receverez chaque email <strong>10 minutes</strong> avant le
-								début de l'etape
+								Vous receverez un email a la fin de chaque étapes programmer
 							</p>
 							<Card title="Programmation">
 								<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
