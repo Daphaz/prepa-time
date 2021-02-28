@@ -31,3 +31,4 @@ mongoose | simply use mongodb
 
 - v0.0.1 : System auth / autorisation login and signup
 - v0.0.2 : Add REST api mongodb / form for all features
+- v0.0.3 : System schedule email with cron for steps of receipe
