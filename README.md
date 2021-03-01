@@ -1,5 +1,5 @@
 ## Prepa-Time
-![not yet]()
+![screenshot](/screenshot.png)
 >With this project I would like to continue learning nextjs and create a CRUD api with mongodb, using the MVC model. I also want to improve my CSS and therefore not use Framwork user interface.
 [Link to the project](https://prepa-time.vercel.app/)
 
